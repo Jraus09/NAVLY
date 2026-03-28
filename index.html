@@ -23764,35 +23764,65 @@ function hideKneeboard(){document.getElementById('kneeboard').classList.remove('
 
 function printKneeboard() {
   const card = document.querySelector('.kb-card');
-  if (!card) return;
+  if (!card) { logWarn('No kneeboard to print — plan a route first.'); return; }
 
-  // Grab all stylesheet text from the page
-  const styles = Array.from(document.styleSheets).map(ss => {
-    try { return Array.from(ss.cssRules).map(r => r.cssText).join('\n'); }
-    catch(e) { return ''; }
-  }).join('\n');
+  const html = card.outerHTML;
 
-  const win = window.open('', '_blank', 'width=700,height=900');
-  win.document.write(`<!DOCTYPE html>
+  // Self-contained print window with all CSS inlined — no external deps
+  const doc = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Navly Kneeboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap');
-  ${styles}
-  body { background: white; margin: 0; padding: 16px; }
-  .kb-card { margin: 0 auto; }
-  .kb-print-row, .kb-close { display: none !important; }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+:root{--mono:'Share Tech Mono',monospace;--cond:'Barlow Condensed',sans-serif;--paper:#f5f0e8;--amber:#e6820a;--blue:#0d3a6e;--cyan:#00b4d8;--green:#22c55e;--red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{background:white;font-family:var(--mono);padding:12px;}
+.kb-card{width:4.25in;margin:0 auto;background:white;border:1px solid #aaa;border-radius:4px;overflow:hidden;font-family:var(--mono);}
+.kb-header-bar{background:#e8eef5;padding:12px 14px 8px;border-bottom:2px solid #b8860b;}
+.kb-route-line{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;}
+.kb-route-id{font-family:var(--cond);font-weight:900;font-size:24px;letter-spacing:.05em;color:#111;}
+.kb-arrow{font-size:18px;color:#b8860b;}
+.kb-meta-right{margin-left:auto;text-align:right;font-size:8px;line-height:1.6;color:#555;}
+.kb-meta-right strong{color:#111;}
+.kb-tag-row{display:flex;gap:6px;align-items:center;}
+.kb-cruise-tag{background:#1a4a7a;color:white;font-family:var(--cond);font-weight:700;font-size:9px;letter-spacing:.1em;padding:2px 7px;border-radius:2px;text-transform:uppercase;}
+.kb-col-heads{display:grid;grid-template-columns:28px 1fr 36px 46px 46px 1fr;background:#1a4a7a;padding:4px 10px;font-size:7px;letter-spacing:.1em;color:white;text-transform:uppercase;}
+.kb-wp-row{display:grid;grid-template-columns:28px 1fr 36px 46px 46px 1fr;padding:7px 10px;border-bottom:1px solid #e0e0e0;align-items:start;}
+.kb-wp-row:nth-child(even){background:#f8f8f8;}
+.kb-wp-row.dep-row{border-left:3px solid #2a7a2a;}
+.kb-wp-row.dest-row{border-left:3px solid #cc2222;}
+.kb-wp-row.wp-row{border-left:3px solid #b8860b;}
+.kb-wp-row.terrain-row{border-left:3px solid #cc2222;}
+.kb-fix-num{font-size:10px;color:#888;padding-top:1px;}
+.kb-fix-name{font-family:var(--cond);font-weight:700;font-size:12px;color:#111;line-height:1.1;}
+.kb-fix-sub{font-size:7px;color:#666;margin-top:1px;line-height:1.3;}
+.kb-fix-coord{font-size:7px;color:#999;margin-top:2px;}
+.kb-col-val{font-size:10px;color:#111;padding-top:2px;}
+.kb-col-dim{font-size:7px;color:#777;}
+.kb-note-cell{font-size:8px;color:#444;line-height:1.4;padding-top:2px;}
+.kb-terrain-badge{background:#fde8e8;color:#cc0000;font-size:6px;letter-spacing:.08em;padding:1px 4px;border-radius:2px;text-transform:uppercase;display:inline-block;margin-bottom:2px;border:1px solid #ffaaaa;}
+.kb-freq-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #bbb;}
+.kb-freq-cell{padding:7px 8px;border-right:1px solid #ddd;}
+.kb-freq-cell:last-child{border-right:none;}
+.kb-freq-label{font-size:6px;letter-spacing:.1em;color:#777;text-transform:uppercase;margin-bottom:2px;}
+.kb-freq-val{font-size:11px;font-weight:bold;color:#1a4a7a;}
+.kb-freq-sub{font-size:7px;color:#666;margin-top:2px;}
+.kb-disc{background:#fff9e6;border-top:1px solid #ddd;padding:5px 10px;font-size:6px;color:#666;letter-spacing:.04em;display:flex;justify-content:space-between;}
+.kb-print-row{display:none;}
 </style>
 </head>
 <body>
-${card.outerHTML}
+${html}
+<script>window.onload=function(){window.print();}<\/script>
 </body>
-</html>`);
+</html>`;
+
+  const win = window.open('', '_blank');
+  win.document.open();
+  win.document.write(doc);
   win.document.close();
-  win.onload = () => { win.focus(); win.print(); };
 }
 
 document.addEventListener('keydown',e=>{
