@@ -24062,16 +24062,36 @@ function exportGPX(){
   if(!currentPlan)return;
   const{dep,dest,waypoints}=currentPlan;
   const esc=s=>(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const gpxName=s=>esc(s.length>17?s.slice(0,16)+'\u2026':s);
+  const eleTag=elev=>(!elev||elev===0)?'':'<ele>'+Math.round(elev*0.3048)+'</ele>';
+
   const all=[
-    {name:dep.icao,lat:dep.lat,lon:dep.lon,elev:dep.elev??0},
-    ...waypoints.map((w,i)=>({name:`WP${i+1}-${w.name}`,lat:w.lat,lon:w.lon,elev:w.elev??0})),
-    {name:dest.icao,lat:dest.lat,lon:dest.lon,elev:dest.elev??0}
+    {name:dep.icao,lat:dep.lat,lon:dep.lon,elev:dep.elev??0,desc:'Departure airport'},
+    ...waypoints.map((w,i)=>({
+      name:('WP'+(i+1)+'-'+w.name).slice(0,17),
+      lat:w.lat,lon:w.lon,
+      elev:w.elev_ft??w.elev??0,
+      desc:w.sublabel||w.name
+    })),
+    {name:dest.icao,lat:dest.lat,lon:dest.lon,elev:dest.elev??0,desc:'Destination airport'},
   ];
-  const gpx=`<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="VFR Pilotage Planner" xmlns="http://www.topografix.com/GPX/1/1">\n  <metadata><name>${esc(dep.icao)} to ${esc(dest.icao)}</name><desc>VFR Pilotage Route - FOR REFERENCE ONLY</desc><time>${new Date().toISOString()}</time></metadata>\n  <rte><name>${esc(dep.icao)}-${esc(dest.icao)} VFR Route</name>\n${all.map(w=>`    <rtept lat="${w.lat.toFixed(6)}" lon="${w.lon.toFixed(6)}"><ele>${Math.round(w.elev*0.3048)}</ele><name>${esc(w.name)}</name></rtept>`).join('\n')}\n  </rte>\n</gpx>`;
+
+  const wpts=all.map(w=>'  <wpt lat="'+w.lat.toFixed(6)+'" lon="'+w.lon.toFixed(6)+'">'+eleTag(w.elev)+'<name>'+gpxName(w.name)+'</name><desc>'+esc(w.desc)+'</desc></wpt>').join('\n');
+  const rtepts=all.map(w=>'    <rtept lat="'+w.lat.toFixed(6)+'" lon="'+w.lon.toFixed(6)+'">'+eleTag(w.elev)+'<name>'+gpxName(w.name)+'</name><desc>'+esc(w.desc)+'</desc></rtept>').join('\n');
+
+  const gpx='<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Navly VFR Planner" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">\n  <metadata>\n    <name>'+esc(dep.icao)+' to '+esc(dest.icao)+'</name>\n    <desc>VFR Pilotage Route - FOR REFERENCE ONLY. NOT FOR NAVIGATION.</desc>\n    <time>'+new Date().toISOString()+'</time>\n  </metadata>\n'+wpts+'\n  <rte>\n    <name>'+esc(dep.icao)+'-'+esc(dest.icao)+' VFR</name>\n    <desc>VFR pilotage waypoints. Verify against current sectional chart.</desc>\n'+rtepts+'\n  </rte>\n</gpx>';
+
+  try{
+    const doc=new DOMParser().parseFromString(gpx,'application/xml');
+    if(doc.querySelector('parsererror')){logErr('GPX XML error');return;}
+  }catch(e){}
+
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([gpx],{type:'application/gpx+xml'}));
-  a.download=`${dep.icao}-${dest.icao}-VFR.gpx`;a.click();
+  a.download=dep.icao+'-'+dest.icao+'-VFR.gpx';
+  a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),10000);
+  logOk('GPX exported: '+all.length+' waypoints ('+dep.icao+'\u2192'+dest.icao+')');
 }
 
 // ─── KNEEBOARD ───────────────────────────────────────────────────────────────
