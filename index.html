@@ -239,7 +239,7 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
         </div>
         <div class="opts">
           <div class="field"><label>Cruise Alt (ft MSL)</label><input type="number" id="alt" value="5500" min="500" max="17500" step="500" aria-label="Cruise altitude in feet MSL"></div>
-          <div class="field"><label>Waypoints (5–8)</label><input type="number" id="numwp" value="6" min="5" max="8" aria-label="Number of waypoints"></div>
+          <div class="field"><label>Waypoints (5–8)</label><input type="number" id="numwp" value="6" min="1" max="8" aria-label="Number of waypoints"></div>
         </div>
         <button class="plan-btn" id="planBtn" onclick="planRoute()" aria-label="Plan route">▶ Plan Route</button>
       <div id="recent-routes" style="display:none;margin-top:10px;">
@@ -23713,6 +23713,82 @@ const LANDMARKS = [
   [45.8940,-122.8280,"SCAPPOOSE OR N","Columbia River / US-30","Columbia River at Scappoose Bay. US-30 river corridor. St Helens to N. Sauvie Island ahead.",false],
   [45.6610,-122.6680,"SAUVIE ISLAND OR","Columbia River island","Sauvie Island — large flat island in Columbia River NW of Portland. Very distinctive island shape.",false],
   [45.6390,-122.5750,"COLUMBIA RIVER / PDX","Columbia River approach Portland","Columbia River approaching PDX airport. I-205 bridge to E. Airport on N bank of Columbia.",false],
+  // ── NW LOWER MICHIGAN — Benzie / Grand Traverse county corridor ──────────
+  [44.9903,-86.0531,"CRYSTAL LAKE MI","Benzie County landmark","Crystal Lake — large clear lake, very distinctive blue shape from altitude. Just W of Benzonia. On sectional.",false],
+  [44.7744,-86.1625,"PLATTE LAKE MI","Platte River / M-22","Platte Lake feeds into Lake Michigan via Platte River. M-22 scenic byway. Benzie County.",false],
+  [44.9450,-86.0100,"BENZONIA / BEULAH MI","Crystal Lake S shore / US-31","Beulah on Crystal Lake S shore. US-31 corridor. Twin small towns visible as grid.",false],
+  [44.8197,-86.0614,"HONOR MI","Platte River / US-31","Honor on Platte River. US-31/M-115 junction. Platte River visible as silver thread.",false],
+  [44.9225,-85.9200,"LAKE ANN MI","Small lake / Almira Twp","Lake Ann — small but distinctive round lake. Village of Lake Ann on SW shore. Benzie County.",false],
+  [44.8788,-85.6831,"INTERLOCHEN MI","Duck Lake / M-137","Interlochen — M-137/US-31 junction. Duck Lake and Green Lake visible. Interlochen Arts Academy.",false],
+  [44.6650,-85.7700,"LONG LAKE MI","Grand Traverse County","Long Lake near Traverse City. Residential lake. US-31 corridor S of Traverse City.",false],
+  [44.9700,-85.9100,"PLATTE RIVER POINT","Lake Michigan / M-22","Platte River mouth on Lake Michigan. Very distinctive where river meets lake. M-22 coastal.",false],
+  [45.0500,-85.5700,"ELK LAKE MI","Antrim County / M-88","Elk Lake — long finger lake. Elk Rapids on N shore. M-88/US-31. Antrim County.",false],
+  [45.1300,-85.6300,"TORCH LAKE MI","Antrim County / M-88","Torch Lake — 19 miles long, blue Caribbean-color water. One of most beautiful lakes in US. Very distinctive.",false],
+  [44.8450,-85.4800,"EAST BAY / OLD MISSION","Grand Traverse Bay E","East Bay of Grand Traverse Bay. Old Mission Peninsula divides the bay — very distinctive.",false],
+  [44.7800,-85.7200,"GRAND TRAVERSE BAY W","West Arm / NW Michigan","West Arm of Grand Traverse Bay. Very distinctive water body. Traverse City at S end.",false],
+  [45.3500,-85.2600,"LAKE CHARLEVOIX","Charlevoix County","Lake Charlevoix — large inland lake. Boyne City on SE shore. US-31/M-32. Antrim County.",false],
+  [44.5600,-85.9600,"BETSIE LAKE MI","Frankfort harbor / US-31","Betsie Lake at Frankfort — harbor mouth on Lake Michigan. Lighthouse visible. US-31.",false],
+  [44.9897,-85.4300,"TORCH LAKE S","S end Torch Lake / Elk River","S end of Torch Lake. Elk River flows S to Torch River. Chain of Lakes visible.",false],
+  [45.0800,-84.6700,"ALBA / ANTRIM CO","Jordan River / M-66","Jordan River valley. M-66. Flat valley farmland. Antrim County.",false],
+  // ── MICHIGAN UPPER PENINSULA — central UP corridor ──────────────────────
+  [46.4750,-89.1167,"WATERSMEET MI","Ottawa NF / US-2","Watersmeet on US-2/US-45. Ottawa National Forest. Lac Vieux Desert to W — large lake. Very remote UP.",false],
+  [46.1167,-88.5333,"IRON MOUNTAIN MI","Menominee River / US-2","Iron Mountain on Menominee River. US-2/US-141. Ford Airport (historic). Twin cities with Kingsford.",false],
+  [46.0722,-88.0639,"CRYSTAL FALLS MI","Paint River / US-2","Crystal Falls on Paint River. US-2 corridor. Paint River National Forest. UP interior.",false],
+  [46.2500,-87.6167,"GWINN MI","Escanaba River / US-41","Gwinn near Escanaba River. US-41. K.I. Sawyer AFB area (former B-52 base). Flat UP plain.",false],
+  [46.5333,-87.6667,"MUNISING MI","Pictured Rocks / M-28","Munising on Lake Superior. Pictured Rocks National Lakeshore — colored sandstone cliffs. M-28.",true],
+  [46.3500,-86.9500,"INDIAN LAKE MI","Indian Lake / M-149","Indian Lake State Park — large inland lake. M-149/US-2. Delta County. Escanaba to S.",false],
+  [46.5167,-86.6833,"PICTURED ROCKS","Lake Superior / M-28","Pictured Rocks east section. Au Sable Light Station. Lake Superior shore. Very distinctive.",true],
+  [46.2500,-86.1167,"SENEY MI","Seney NWR / M-28","Seney National Wildlife Refuge. M-28/M-77. Very flat marsh and forest. Remote E Upper Peninsula.",false],
+  [45.9500,-86.5000,"MANISTIQUE MI","Manistique Lake / US-2","Manistique on Lake Michigan shore. US-2. Manistique River. Indian Lake to N.",false],
+  [45.8333,-84.7500,"MACKINAW CITY MI","Straits of Mackinac","Mackinaw City — Mackinac Bridge S tower. Straits of Mackinac. I-75 terminus. Very distinctive.",true],
+  [45.7667,-84.4000,"CHEBOYGAN MI","Cheboygan River / US-23","Cheboygan on Lake Huron. Cheboygan River. US-23 N-S. Douglas Lake to SW.",false],
+  [45.4833,-84.9667,"PETOSKEY MI","Little Traverse Bay","Petoskey on Little Traverse Bay. US-31/US-131. Bay visible. Bayview historic district.",false],
+  [45.3167,-85.2500,"HARBOR SPRINGS MI","Little Traverse Bay","Harbor Springs on Little Traverse Bay. M-119 — Tunnel of Trees road. Very scenic N Michigan.",false],
+  [45.6667,-85.3833,"LAKE CHARLEVOIX MI","S end Lake Charlevoix","Lake Charlevoix south end. Boyne City. US-131/M-32. Long narrow lake very visible.",false],
+  [46.0833,-85.4667,"BEAVER ISLAND MI","Lake Michigan island","Beaver Island — largest island in Lake Michigan. St James Harbor. Very visible from altitude.",true],
+
+  // ── MONTANA — Bozeman to Great Falls corridor ────────────────────────────
+  [46.3167,-111.5833,"CANYON FERRY LAKE MT","Missouri River reservoir","Canyon Ferry Lake — large reservoir on Missouri River, 35mi long. Very distinctive blue shape. US-12.",false],
+  [46.5833,-111.7500,"YORK MT","Missouri River canyon","Missouri River canyon N of Helena. Deep gorge through Big Belt Mountains. US-287 follows.",true],
+  [46.8167,-111.4833,"WOLF CREEK MT","Missouri River / I-15","Wolf Creek on Missouri River. I-15 corridor to Great Falls. Gates of the Mountains downstream.",false],
+  [47.0333,-111.5333,"CASCADE MT","Missouri River / US-87","Cascade on Missouri River. US-87 N-S. Flat river valley. Great Falls to N.",false],
+  [46.0000,-111.2500,"THREE FORKS MT","Missouri River headwaters","Three Forks — Missouri, Jefferson, Madison Rivers converge. Very distinctive triple-river junction.",false],
+  [46.8667,-113.9833,"OVANDO MT","Blackfoot River / MT-200","Ovando on Blackfoot River. MT-200. Flat mountain valley. Bob Marshall Wilderness to N.",false],
+
+  // ── E COLORADO — Garden City to Pueblo corridor ──────────────────────────
+  [38.0333,-103.5500,"LA JUNTA CO","Arkansas River / US-50","La Junta on Arkansas River. US-50/US-350. Flat SE Colorado. Comanche National Grassland.",false],
+  [37.9833,-102.5667,"LAS ANIMAS CO","Arkansas River / US-50","Las Animas on Arkansas River. US-50. Bent's Old Fort nearby. Very flat Colorado plains.",false],
+  [38.0833,-103.2000,"JOHN MARTIN RESERVOIR","Arkansas River reservoir","John Martin Reservoir — large reservoir on Arkansas River. US-50. Boating visible from altitude.",false],
+  [38.5000,-103.1667,"ORDWAY CO","US-71 / Arkansas River","Ordway on US-71/US-96. Flat SE Colorado farmland. Manzanola to W. Pivot irrigation.",false],
+
+  // ── IDAHO — Boise to Sun Valley corridor ─────────────────────────────────
+  [43.3167,-115.7167,"MOUNTAIN HOME AREA","Snake River Plain / I-84","Mountain Home area on Snake River Plain. I-84/US-20. Very flat desert. MHAFB.",false],
+  [43.5333,-115.2333,"ANDERSON RANCH RES","S Fork Boise River","Anderson Ranch Reservoir — large reservoir on S Fork Boise River. Very visible blue water in desert.",false],
+  [43.4500,-114.9500,"CAMAS PRAIRIE ID","Camas Prairie / US-20","Camas Prairie — very flat agricultural valley. US-20 E-W. Wind turbines visible.",false],
+  [43.5167,-114.3667,"HAILEY ID","Wood River / US-75","Hailey on Wood River. US-75 N-S. Sawtooth Mountains to N. Sun Valley area. Friedman Memorial.",false],
+  [43.6833,-115.0333,"FEATHERVILLE ID","S Fork Boise River","Featherville on S Fork Boise River. Very remote. Trinity Mountain area. Rocky terrain.",true],
+
+  // ── CENTRAL NEVADA — SLC to Ely corridor ─────────────────────────────────
+  [39.7833,-112.4333,"DELTA UT","Sevier Lake / US-6","Delta on US-6/US-50. Sevier Lake to SW — dry playa lake, very visible. Flat basin.",false],
+  [39.2167,-113.2167,"WARM SPRINGS NV","Railroad Valley / US-6","Warm Springs area on US-6. Railroad Valley. Very isolated central Nevada. No other features.",false],
+  [39.5000,-114.2167,"ELY NV","US-6 / US-50","Ely on US-6/US-50. Ward Mountain nearby. Copper mines visible. E Nevada basin and range.",false],
+  [39.4167,-114.8833,"WHITE PINE COUNTY","Snake Valley / US-93","Snake Valley on US-93. White Pine County. Nevada/Utah border. Very flat.",false],
+  [39.7333,-114.9833,"SPRING VALLEY NV","Snake Range / US-93","Spring Valley on US-93. Snake Range to E — Wheeler Peak 13,063ft. Great Basin National Park.",true],
+  [39.0167,-114.5167,"LUND NV","White River Valley","Lund in White River Valley. US-93. Very isolated central Nevada. No services.",false],
+  // ── RAPID CITY TO PIERRE CORRIDOR — W South Dakota ──────────────────────
+  [43.9833,-101.5000,"WALL SD","Badlands / I-90","Wall on I-90 — home of Wall Drug. Badlands National Park to S. Flat table top. Famous sign.",false],
+  [44.0500,-101.1500,"PHILIP SD","Bad River / US-14","Philip on Bad River. US-14 E-W. Flat W South Dakota. Very isolated. Philip airport visible.",false],
+  [44.2000,-100.6167,"FORT PIERRE SD","Missouri River / US-83","Fort Pierre on Missouri River. US-83. Across from Pierre SD. Very large river visible.",false],
+  [43.7833,-101.5000,"BADLANDS NP","South Dakota landmark","Badlands National Park — eroded pinnacles and buttes. Very distinctive from altitude. Cedar Pass.",true],
+  [43.8667,-100.8500,"MURDO SD","White River / I-90","Murdo on I-90/US-83. White River to N. Flat W South Dakota. Very small isolated town.",false],
+
+  // ── TRAVERSE CITY TO ESCANABA — N Lake Michigan shore ────────────────────
+  [45.3167,-85.2500,"HARBOR SPRINGS N","Little Traverse Bay N","Harbor Springs on N shore Little Traverse Bay. M-119 Tunnel of Trees. Very scenic.",false],
+  [45.5500,-85.2667,"CHARLEVOIX AREA","Lake Charlevoix N end","Charlevoix on Lake Michigan / Lake Charlevoix mouth. Very distinctive — lake connects to Lake Michigan.",false],
+  [45.7500,-86.7667,"GARDEN PENINSULA MI","L Michigan / Delta Co","Garden Peninsula extends S into Lake Michigan. Very distinctive long narrow peninsula. Fayette State Park.",true],
+  [45.6167,-87.3667,"STONINGTON PENINSULA","L Michigan shore","Stonington Peninsula on Little Bay de Noc. US-2/US-41. Delta County. Escanaba bay visible.",false],
+  [45.8000,-86.3000,"LITTLE BAY DE NOC","Lake Michigan inlet","Little Bay de Noc — large bay on N Lake Michigan. Escanaba at head of bay. Very identifiable.",false],
+  [45.5833,-86.0167,"SUMMER ISLAND MI","Lake Michigan island","Summer Island in northern Lake Michigan. Between Garden Peninsula and UP mainland. Distinctive.",false],
 ];
 
 // Known route frequencies (keyed by airport pairs or individual airports)
@@ -24735,7 +24811,7 @@ async function planRoute(){
   const depIcao=document.getElementById('dep').value.trim().toUpperCase();
   const destIcao=document.getElementById('dest').value.trim().toUpperCase();
   const cruiseAlt=parseInt(document.getElementById('alt').value)||5500;
-  const numWp=Math.max(5,Math.min(8,parseInt(document.getElementById('numwp').value)||6));
+  const numWpUser=Math.max(1,Math.min(8,parseInt(document.getElementById('numwp').value)||6));
 
   if(!depIcao||!destIcao){logErr('Enter both airport identifiers.');return;}
   if(depIcao===destIcao){logErr('Departure and destination must differ.');return;}
@@ -24756,10 +24832,11 @@ async function planRoute(){
     const totalNm=haversine(dep.lat,dep.lon,dest.lat,dest.lon);
     logOk(`Distance: ${totalNm.toFixed(1)} nm`);
     // Auto-scale waypoints for short routes: ~1 per 15nm
-    const effectiveWp = totalNm < 60 ? Math.max(2, Math.min(numWp, Math.floor(totalNm/15)))
-                      : totalNm < 100 ? Math.max(3, Math.min(numWp, Math.floor(totalNm/18)))
-                      : numWp;
-    if(effectiveWp < numWp) logWarn(`Short route — using ${effectiveWp} waypoints instead of ${numWp}`);
+    const effectiveWp = totalNm <  30 ? Math.max(1, Math.min(numWpUser, Math.floor(totalNm/15)))
+                      : totalNm <  60 ? Math.max(2, Math.min(numWpUser, Math.floor(totalNm/15)))
+                      : totalNm < 100 ? Math.max(3, Math.min(numWpUser, Math.floor(totalNm/18)))
+                      : numWpUser;
+    if(effectiveWp < numWpUser) logWarn(`Short route (${totalNm.toFixed(0)}nm) — using ${effectiveWp} waypoints`);
     if(totalNm<5){logErr('Route too short.');document.getElementById('resultsPane').innerHTML=`<div class="empty-state" style="opacity:.5"><p style="color:#f87171">Route too short.</p></div>`;return;}
 
     logInfo('Sampling terrain profile…');
