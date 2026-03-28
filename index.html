@@ -163,14 +163,53 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
   body>*{display:none!important;}
   #kneeboard{display:block!important;position:static!important;padding:0!important;background:white!important;}
   .kb-close,.kb-print-row{display:none!important;}
-  .kb-card{background:white!important;color:black!important;border:1px solid #ccc!important;}
-  .kb-header-bar{background:#f0f4f8!important;}
-  .kb-route-id,.kb-fix-name{color:black!important;}
+
+  /* Card container */
+  .kb-card{background:white!important;color:#111!important;border:1px solid #aaa!important;width:4.25in!important;}
+
+  /* Header */
+  .kb-header-bar{background:#e8eef5!important;border-bottom:2px solid #b8860b!important;}
+  .kb-route-id{color:#111!important;}
+  .kb-arrow{color:#b8860b!important;}
+  .kb-meta-right{color:#555!important;}
+  .kb-meta-right strong{color:#111!important;}
+  .kb-route-line{color:#111!important;}
+
+  /* Tags */
+  .kb-cruise-tag{background:#1a4a7a!important;color:white!important;}
+  .kb-tag-row{gap:6px!important;}
+
+  /* Column headers */
+  .kb-col-heads{background:#1a4a7a!important;color:white!important;}
+
+  /* Waypoint rows */
+  .kb-wp-row{background:white!important;border-bottom:1px solid #ddd!important;}
+  .kb-wp-row:nth-child(even){background:#f5f5f5!important;}
+  .kb-wp-row.dep-row{border-left:3px solid #2a7a2a!important;}
+  .kb-wp-row.dest-row{border-left:3px solid #cc2222!important;}
+  .kb-wp-row.wp-row{border-left:3px solid #b8860b!important;}
+  .kb-wp-row.terrain-row{border-left:3px solid #cc2222!important;}
+
+  /* Waypoint text */
+  .kb-fix-num{color:#777!important;}
+  .kb-fix-name{color:#111!important;}
+  .kb-fix-sub{color:#555!important;}
+  .kb-fix-coord{color:#777!important;}
   .kb-col-val{color:#111!important;}
-  .kb-note-cell,.kb-fix-sub,.kb-fix-coord{color:#444!important;}
+  .kb-col-dim{color:#666!important;}
+  .kb-note-cell{color:#333!important;}
+  .kb-terrain-badge{background:#fde8e8!important;color:#cc0000!important;}
+
+  /* Frequencies */
+  .kb-freq-row{border-top:1px solid #bbb!important;}
+  .kb-freq-cell{border-right:1px solid #ddd!important;}
+  .kb-freq-label{color:#666!important;}
   .kb-freq-val{color:#1a4a7a!important;}
-  .kb-col-heads{background:#1a4a7a!important;}
-  .kb-wp-row:nth-child(even){background:#f8f8f8!important;}
+  .kb-freq-sub{color:#555!important;}
+
+  /* Footer */
+  .kb-disc{background:#fff9e6!important;border-top:1px solid #ccc!important;color:#555!important;}
+  .kb-notfornav{color:#555!important;}
 }
 @media(max-width:700px){
   .main{grid-template-columns:1fr;}
