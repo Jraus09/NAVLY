@@ -23025,6 +23025,379 @@ const LANDMARKS = [
   [42.3314,-83.0458,"DETROIT MI","Detroit River","DTW Class B to SW. Detroit River — US/Canada border. Ambassador Bridge.",true],
   [43.0389,-76.1272,"ONEIDA LAKE S","Central NY corridor","Oneida Lake S shore. US-11 corridor. Flat farmland.",false],
   [35.9606,-83.9207,"KNOXVILLE TN","Tennessee River","TYS airport. Tennessee River loops through city. I-40/I-75 junction.",false],
+  // ── MAJOR RIVERS (highest VFR priority — linear, always visible) ──
+  [46.2087,-119.2014,"COLUMBIA RIVER / TRI-CITIES","Columbia River gorge","Columbia River at Kennewick/Richland/Pasco — major river bend. I-82 bridge. Nuclear facilities visible.",false],
+  [45.6650,-121.1870,"COLUMBIA RIVER GORGE","Columbia River / US-30","Columbia River Gorge — dramatic canyon. I-84 corridor. Waterfalls on N wall. Unmistakable.",true],
+  [44.0502,-116.9627,"SNAKE RIVER / BOISE","Snake River valley","Snake River at Boise. I-84 follows river. Distinctive bend. Flat irrigated valley.",false],
+  [42.5765,-114.4685,"SNAKE RIVER TWIN FALLS","Shoshone Falls / Snake Canyon","Shoshone Falls and Snake River Canyon — dramatic chasm visible from altitude. US-93 bridge.",true],
+  [44.5000,-110.8300,"YELLOWSTONE PLATEAU","Yellowstone caldera","Yellowstone National Park. Steam plumes visible. Yellowstone Lake. Grand Teton to S.",true],
+  [43.7331,-111.0450,"SNAKE RIVER PLAIN","I-15 / Idaho Falls","Snake River Plain — flat volcanic corridor. I-15 and I-86. Idaho Falls city grid.",false],
+  [38.5817,-109.5498,"GREEN RIVER CANYONS","Canyonlands / Green River","Green and Colorado Rivers merge in Canyonlands. Dramatic canyon system. Distinctive red rock.",true],
+  [36.1070,-112.1130,"GRAND CANYON SOUTH RIM","Colorado River gorge","Grand Canyon — unmistakable. Colorado River visible at bottom. South Rim Village. Watch altitude.",true],
+  [36.9419,-111.4838,"GLEN CANYON / LAKE POWELL","Colorado River reservoir","Lake Powell — blue water in red rock desert. Glen Canyon Dam. Page AZ to N.",false],
+  [31.7718,-106.4978,"RIO GRANDE / EL PASO","US/Mexico border river","Rio Grande at El Paso — US/Mexico border. Juarez visible. I-10 corridor.",false],
+  [33.6771,-106.0072,"RIO GRANDE / SOCORRO","Socorro Valley","Rio Grande through central NM. Socorro on US-60. Flat bosque. Sandia Mts to NE.",false],
+  [35.6753,-105.9378,"RIO GRANDE / TAOS","Taos Gorge bridge","Rio Grande Gorge Bridge — dramatic span over 650ft gorge N of Taos. Very distinctive.",true],
+  [29.4246,-98.4951,"SAN ANTONIO RIVER","San Antonio / I-35","San Antonio River. I-35 corridor. City grid of 8th largest US city visible.",false],
+  [30.2241,-97.7654,"COLORADO RIVER TX","Austin / Lake Travis","Colorado River through Austin. Lake Travis to W. I-35 corridor. State Capitol dome.",false],
+  [47.6587,-117.4260,"SPOKANE RIVER","Spokane WA / US-2","Spokane River through downtown. I-90 E-W corridor. City grid. Fairchild AFB to W.",false],
+  [44.8647,-117.0000,"WALLOWA MOUNTAINS","NE Oregon high country","Wallowa Mountains — Eagle Cap Wilderness. Snow-capped peaks. Wallowa Lake visible.",true],
+  [45.7054,-118.8274,"UMATILLA / COLUMBIA","Pendleton area","Columbia River at Umatilla. I-84/US-395 junction. Irrigated Columbia Basin.",false],
+
+  // ── MAJOR MOUNTAIN RANGES & PASSES ──
+  [44.4280,-110.5840,"TETON RANGE","Grand Teton peaks","Grand Teton 13,775ft — most distinctive mountain silhouette in US. Jackson Hole below.",true],
+  [39.1911,-106.8175,"CONTINENTAL DIVIDE CO","Tennessee Pass / US-24","Tennessee Pass 10,424ft on US-24. Continental Divide crossing. Rocky Mtn National Park to N.",true],
+  [45.3735,-121.7028,"MT HOOD OR","Cascade volcano 11,249ft","Mt Hood — prominent cone, permanent snowcap. Portland visible to NW. I-84 to N.",true],
+  [46.8523,-121.7603,"MT RAINIER WA","Cascade volcano 14,411ft","Mt Rainier — highest peak in Cascades. Always snowcapped. Visible 100+ miles.",true],
+  [44.1018,-121.6993,"THREE SISTERS OR","Cascade volcanoes","Three Sisters — prominent volcanic trio visible from central Oregon. Sisters town below.",true],
+  [42.5329,-122.1370,"CRATER LAKE OR","Ancient volcanic caldera","Crater Lake — deepest US lake, vivid blue. Rim 6,000ft+. Unmistakable from altitude.",true],
+  [36.4579,-118.0684,"KINGS CANYON","Sierra Nevada escarpment","Kings Canyon — Sierra Nevada western escarpment. Dramatic transition from flat valley to peaks.",true],
+  [37.8651,-119.5383,"YOSEMITE VALLEY","Half Dome / El Capitan","Yosemite Valley — Half Dome distinctive granite dome visible from distance. Sierra Nevada.",true],
+  [38.7274,-108.0567,"GRAND MESA","World's largest flat-top","Grand Mesa — flat-top plateau at 10,000ft, very distinctive. Grand Junction below.",true],
+
+  // ── MAJOR LAKES & RESERVOIRS ──
+  [41.2132,-112.0118,"GREAT SALT LAKE","Utah salt lake","Great Salt Lake — massive shallow lake, white salt flats on edges. I-15 on SE shore.",false],
+  [39.1638,-119.7679,"LAKE TAHOE","High Sierra lake","Lake Tahoe — deep blue lake at 6,229ft. Sierra Nevada. Reno to NE. Very distinctive.",false],
+  [36.0097,-114.7377,"LAKE MEAD","Hoover Dam reservoir","Lake Mead — largest US reservoir by volume. Hoover Dam at SE end. Las Vegas to NW.",false],
+  [37.0765,-111.2617,"LAKE POWELL","Glen Canyon reservoir","Lake Powell — 186 miles of blue water in red canyon. Very distinctive from altitude.",false],
+  [43.5987,-116.5166,"LUCKY PEAK RESERVOIR","Boise River / ID-21","Lucky Peak Reservoir on Boise River. Lucky Peak Dam. Boise to W.",false],
+  [44.5316,-110.3861,"YELLOWSTONE LAKE","Yellowstone / thermal features","Yellowstone Lake at 7,733ft — largest high-altitude lake in N America. Steam vents visible.",false],
+  [46.9688,-95.8881,"LEECH LAKE MN","MN lake country","Leech Lake — MN lake country. Distinctive amid boreal forest. US-2/US-371.",false],
+  [43.9584,-91.2557,"LAKE PEPIN","Mississippi River widening","Lake Pepin — natural widening of Mississippi River. WI/MN border. US-61 on W shore.",false],
+  [30.5516,-91.1403,"FALSE RIVER / LAKE BRUIN","LA oxbow lakes","False River oxbow lake near Baton Rouge. I-10 corridor. Flat Mississippi delta.",false],
+  [27.8310,-97.0488,"CORPUS CHRISTI BAY","Texas coast","Corpus Christi Bay — distinctive coastal bay. Causeway visible. Padre Island to SE.",false],
+  [29.4500,-94.9000,"GALVESTON BAY","Houston coast","Galveston Bay — large coastal bay SE of Houston. Ship channel visible. I-45 causeway.",false],
+
+  // ── INTERSTATE & HIGHWAY LANDMARKS ──
+  [42.4766,-120.5425,"US-395 / LAKEVIEW OR","High desert highway","US-395 N-S corridor through high desert. Goose Lake to S. Very remote.",false],
+  [41.1485,-104.8202,"I-80 / CHEYENNE","WY interstate corridor","I-80 E-W corridor. Cheyenne city. Francis E Warren AFB. Flat high plains.",false],
+  [34.4048,-103.2052,"US-60 / CLOVIS NM","Eastern NM corridor","US-60/US-84 at Clovis. Flat eastern NM. Cannon AFB visible. Grid farmland.",false],
+  [31.5493,-97.1467,"I-35 / WACO TX","Brazos River + I-35","Waco on I-35. Brazos River. Lake Waco. Distinctive city at highway junction.",false],
+  [35.2226,-101.8313,"I-40 / AMARILLO TX","Texas Panhandle","Amarillo on I-40/US-87. Very flat. Palo Duro Canyon nearby. Large city grid.",false],
+  [35.4676,-97.5164,"I-35 / OKC AREA","Oklahoma City N suburbs","I-35/I-44 junction N of OKC. Tinker AFB to SE. Very flat red earth.",false],
+  // ══ KSAT->KPDX GAP FILLS ══════════════════════════════════════════════════
+  // Gap 1: W Texas to NM (frac 0.15-0.30, ~212nm)
+  [30.3638,-101.5218,"PECOS RIVER / OZONA TX","US-290 + Pecos River crossing","Pecos River canyon crossing on US-290 near Ozona. Limestone canyon visible. Very remote W Texas.",true],
+  [30.9001,-102.8973,"FORT STOCKTON TX","US-285 + US-67 junction","Fort Stockton on US-285/US-67 junction. Flat Chihuahuan desert. Water tower visible. Comanche Springs area.",false],
+  [31.4252,-103.4947,"PECOS TX","Pecos River / I-20","Pecos on I-20/US-285. Pecos River. Flat desert. Reeves County. Famous for cantaloupes.",false],
+  [31.8480,-104.4267,"GUADALUPE MOUNTAINS","Guadalupe Peak 8,751ft","Guadalupe Mountains — highest point in TX at 8,751ft. El Capitan cliff face very distinctive. US-62/180.",true],
+  [32.7771,-104.5248,"CARLSBAD NM","Pecos River / US-285","Carlsbad on US-285/US-62. Pecos River. City grid. Carlsbad Caverns to SW. Potash evaporation ponds visible.",false],
+  [33.3944,-104.5230,"ROSWELL NM","US-285 / Pecos River valley","Roswell on US-285. Pecos River valley. Large city grid in flat valley. Walker AFB site (now industrial).",false],
+  [34.4218,-104.6122,"SANTA ROSA NM","I-40 / Pecos River","Santa Rosa on I-40. Pecos River. Blue Hole visible (bright blue swimming hole). I-40 E-W corridor.",false],
+
+  // Gap 2: UT/NV Great Basin (frac 0.55-0.71, ~246nm)
+  [37.9280,-113.0148,"MILFORD UT","Beaver Lake / US-257","Milford on US-257. Flat Escalante Desert. Beaver Lake dry playa. Wah Wah Mountains to W.",false],
+  [37.9271,-114.2576,"MINERSVILLE RESERVOIR","Beaver County UT","Minersville Reservoir — blue water in desert. UT-21 corridor. Flat valley. Distinctive.",false],
+  [38.0085,-114.5159,"PIOCHE NV","NV-93 / Highland Peak","Pioche on NV-93. Mining town in mountains. Highland Peak behind. Very remote E Nevada.",true],
+  [38.3993,-114.8833,"ELY NV","US-93 / Schell Creek Range","Ely on US-93. White Pine County. Schell Creek Range to E. Steptoe Valley. Highway visible.",false],
+  [39.5277,-116.3170,"EUREKA NV","US-50 / Diamond Mountains","Eureka on US-50 — the Loneliest Highway. Diamond Mountains. Old mining district. Very flat valley.",false],
+  [39.9310,-116.9960,"BATTLE MOUNTAIN NV","I-80 / Humboldt River","Battle Mountain on I-80. Humboldt River valley — follow it W. Mining operations visible. Flat.",false],
+  [40.5961,-117.7394,"WINNEMUCCA NV","I-80 / Humboldt River","Winnemucca on I-80/US-95. Humboldt River valley continues W. City grid. Sonoma Range to N.",false],
+  [40.8324,-117.7374,"HUMBOLDT RIVER / I-80","Follow the river","Humboldt River and I-80 corridor — primary VFR navigation feature across Nevada. Follow westbound.",false],
+
+  // Gap 3: S Oregon (frac 0.80-0.93, ~201nm)  
+  [42.9927,-117.0428,"JORDAN VALLEY OR","US-95 junction","Jordan Valley on US-95/US-78. OR/ID border area. High desert plateau. Very remote.",false],
+  [43.5864,-118.9547,"HARNEY LAKE","Harney Basin / OR","Harney Lake and Malheur Lake — large shallow lakes in Harney Basin. Very distinctive from altitude. US-20.",false],
+  [43.5926,-119.0550,"MALHEUR LAKE","Burns OR area","Malheur National Wildlife Refuge lakes. Burns to N. Flat high desert basin. Very distinctive blue.",false],
+  [43.9413,-120.2007,"PRINEVILLE OR","Crooked River / US-26","Prineville on US-26/US-380. Crooked River canyon to W. Ochoco Mountains. Flat valley.",false],
+  [44.3002,-121.1783,"SISTERS OR","Cascade foothills / US-20","Sisters on US-20. Three Sisters peaks behind to SW. Mt Jefferson to N. Flat high desert to E.",true],
+  [44.0581,-121.3153,"BEND OR / DESCHUTES RIVER","Deschutes River canyon","Bend on US-20/US-97. Deschutes River canyon. Large city grid. Bachelor ski area visible.",false],
+  [44.5422,-121.5110,"MT JEFFERSON OR","Cascade volcano 10,497ft","Mt Jefferson — prominent Cascade volcano, 10,497ft. Permanent snowcap. Visible 80+ miles.",true],
+  [45.0500,-122.1000,"WILLAMETTE VALLEY","I-5 / Willamette River","Willamette Valley — flat agricultural valley. I-5 N-S. Salem to S, Portland to N. Willamette River.",false],
+
+  // ══ OTHER MAJOR ROUTE PILOTAGE FEATURES ════════════════════════════════════
+  // I-10 West Texas corridor
+  [29.8947,-100.2099,"US-90 / DEL RIO TX","Amistad Reservoir","Del Rio area. Amistad Reservoir — large blue reservoir on US/Mexico border. Very distinctive.",false],
+  [29.4500,-100.9171,"AMISTAD RESERVOIR","Rio Grande / TX-Mexico border","Amistad Reservoir on Rio Grande — unmistakable large blue lake at US-Mexico border. Visible 50nm.",false],
+  
+  // Nevada key features
+  [40.9696,-115.7663,"RUBY MOUNTAINS NV","Ruby Valley / Elko area","Ruby Mountains — dramatic range rising from flat valley. Ruby Marsh visible below. E of Elko.",true],
+  [38.7110,-116.0788,"RAILROAD VALLEY NV","US-6 / Extraterrestrial Hwy","Railroad Valley — very flat dry lake bed. US-6 corridor. Area 51 airspace to W. Very remote.",false],
+  
+  // Oregon/Washington rivers
+  [45.6533,-120.8266,"DESCHUTES RIVER / COLUMBIA","Deschutes River mouth","Deschutes River meets Columbia River. US-30/I-84. Columbia River gorge begins. Distinctive junction.",false],
+  [45.5321,-122.4000,"COLUMBIA RIVER / PORTLAND","Columbia River / I-205","Columbia River at Portland. I-205 bridge. PDX airport visible on N bank. Glenn Jackson Bridge.",false],
+
+  // New Mexico highways
+  [34.0645,-106.9022,"US-60 / SOCORRO AREA","Rio Grande crossing","US-60 crosses Rio Grande W of Socorro. Magdalena Mountains to W. Very flat central NM.",false],
+  [35.5281,-108.7426,"GALLUP NM / I-40","I-40 + Red Rock Country","Gallup on I-40. Red Rock State Park. Navajo Nation begins. I-40 corridor continues W.",false],
+
+  // Utah corridors  
+  [37.1310,-113.5684,"ST GEORGE UT","I-15 / Red Cliffs","St George on I-15. Red sandstone cliffs. Snow Canyon visible. Zion NP to NE. Distinctive red terrain.",true],
+  [38.5733,-109.5498,"MOAB UT / COLORADO RIVER","Arches / Canyonlands","Moab on US-191. Colorado River. Arches NP red formations visible. Canyonlands to SW.",true],
+  [37.5505,-110.4210,"LAKE POWELL MAIN BODY","Colorado River reservoir","Lake Powell main body — 186nm of blue water in red canyon. Distinctive from any altitude over 8,000ft.",false],
+  [36.8690,-111.5910,"GLEN CANYON DAM","Colorado River / Page AZ","Glen Canyon Dam at Lake Powell outlet. Page AZ on mesa. US-89. Very distinctive dam structure.",true],
+  // ════════════════════════════════════════════════════════════════════════════
+  // COMPREHENSIVE VFR PILOTAGE DATABASE — SYSTEMATIC US COVERAGE
+  // Organized by corridor. Each entry is a genuine pilotage reference:
+  // rivers, lakes, reservoirs, mountain features, interstate junctions,
+  // and city grids — things a pilot can positively identify from altitude.
+  // ════════════════════════════════════════════════════════════════════════════
+
+  // ── PHL->DCA CORRIDOR (Delaware River / Chesapeake Bay) ──────────────────
+  [39.5501,-75.7000,"WILMINGTON DE","Christina River / I-95","Wilmington city grid. Christina River meets Delaware River. I-95 corridor. Delaware Memorial Bridge visible.",false],
+  [39.3676,-76.6077,"BALTIMORE MD","Chesapeake Bay / I-95","Baltimore city grid. Inner Harbor. Chesapeake Bay to SE. I-695 beltway visible.",false],
+  [39.0840,-76.7791,"CHESAPEAKE BAY BRIDGE","Bay Bridge / US-50","William Preston Lane Jr. Bridge — 4.3mi span across Chesapeake Bay. Very distinctive twin spans.",false],
+  [39.2904,-76.6122,"PATAPSCO RIVER","Baltimore Harbor entrance","Patapsco River leads to Baltimore Harbor. Francis Scott Key Bridge. Fort McHenry on peninsula.",false],
+  [38.9784,-76.4922,"ANNAPOLIS MD","Severn River / US-50","Annapolis. Severn River. US Naval Academy buildings. Chesapeake Bay to E. State Capitol dome.",false],
+
+  // ── ATL->MEM CORRIDOR (Alabama/Mississippi) ──────────────────────────────
+  [34.0098,-85.9774,"GADSDEN AL","Coosa River / US-431","Gadsden on Coosa River. US-431/US-278. Weiss Lake to N. River bends visible.",false],
+  [33.9274,-86.8003,"CULLMAN AL","Smith Lake / US-278","Cullman on US-278. Smith Lake reservoir to SW. I-65 corridor to S.",false],
+  [34.5987,-86.9717,"DECATUR AL","Tennessee River / Wheeler Lake","Decatur on Tennessee River. Wheeler Lake — long reservoir visible. I-65 to E.",false],
+  [34.7298,-86.5862,"HUNTSVILLE AL","Tennessee River / I-565","Huntsville grid. I-565/US-72. Wheeler Lake nearby. Redstone Arsenal visible.",false],
+  [35.1495,-90.0490,"MEMPHIS TN","Mississippi River / I-40","Memphis on Mississippi River. I-40 bridge. Pyramid visible. Very large city grid.",false],
+  [34.7003,-86.9783,"FLORENCE AL","Tennessee River / Muscle Shoals","Florence/Muscle Shoals on Tennessee River. Wilson Dam visible. US-43 corridor.",false],
+  [34.1748,-88.0874,"CORINTH MS","US-72 / Tennessee border","Corinth on US-72. Pickwick Lake to N on Tennessee River. Very flat NE Mississippi.",false],
+  [35.4515,-88.7861,"JACKSON TN","South Fork Forked Deer River","Jackson on US-45. Forked Deer River. I-40 E-W corridor. Flat W Tennessee.",false],
+
+  // ── MEM->STL CORRIDOR (Mississippi River valley) ─────────────────────────
+  [35.8423,-90.7043,"JONESBORO AR","St Francis River / US-63","Jonesboro on US-63. Very flat Mississippi delta farmland. Grid pattern fields.",false],
+  [36.0651,-89.9814,"DYERSBURG TN","Mississippi River / US-51","Dyersburg near Mississippi River. US-51 N-S. Reelfoot Lake to W — distinctive shallow lake.",false],
+  [36.3395,-89.5162,"REELFOOT LAKE TN","Earthquake-formed lake","Reelfoot Lake — formed by 1811 earthquakes. Distinctive irregular shape. Very flat delta.",false],
+  [36.8861,-89.5715,"CAPE GIRARDEAU MO","Mississippi River / US-61","Cape Girardeau on Mississippi River. Distinctive river bend. I-55 bridge. US-61 corridor.",false],
+  [37.3042,-89.5176,"PERRYVILLE MO","Mississippi / Kaskaskia Rivers","Mississippi River at Kaskaskia River junction. IL/MO border. Very flat farmland.",false],
+  [37.9645,-90.0421,"STE GENEVIEVE MO","Mississippi River / US-61","Ste Genevieve on Mississippi River. US-61 corridor. River visible. Flat river valley.",false],
+  [38.5767,-90.5830,"ST LOUIS MO","Mississippi River / Gateway Arch","St Louis. Gateway Arch visible from 50nm. Mississippi River. I-70 bridge. City grid.",false],
+
+  // ── STL->ORD CORRIDOR (Illinois) ─────────────────────────────────────────
+  [39.1201,-89.2945,"VANDALIA IL","Kaskaskia River / I-70","Vandalia on I-70/US-40. Kaskaskia River. Flat central Illinois farmland. Former state capital.",false],
+  [39.5014,-88.6339,"EFFINGHAM IL","I-57 + I-70 junction","Effingham — I-57/I-70 major junction. Very distinctive from altitude. Flat IL.",false],
+  [40.1156,-88.2434,"CHAMPAIGN-URBANA IL","I-57 / Kankakee River","Champaign-Urbana on I-57/I-74. U of Illinois campus. Flat farmland. Water tower visible.",false],
+  [41.0534,-87.8609,"KANKAKEE RIVER IL","I-57 river crossing","Kankakee River crosses I-57. River and highway visible. Flat NE Illinois.",false],
+  [41.5250,-88.0814,"JOLIET IL","I-55 + I-80 junction","Joliet on I-55/I-80/I-88. Major highway junction visible from altitude. Des Plaines River.",false],
+
+  // ── MSP->FSD CORRIDOR (Minnesota/S Dakota) ───────────────────────────────
+  [44.4583,-93.9992,"MANKATO MN","Minnesota River / US-169","Mankato on Minnesota River. US-169/US-60. River bends. Flat river valley.",false],
+  [44.0192,-94.9968,"NEW ULM MN","Minnesota River / MN-15","New Ulm on Minnesota River. MN-15 corridor. Hermann Monument visible (huge statue).",false],
+  [44.1636,-95.8969,"WORTHINGTON MN","I-90 / SW Minnesota","Worthington on I-90. Okabena Lake visible. Very flat SW Minnesota farmland. Wind turbines.",false],
+  [43.6697,-96.7817,"SIOUX FALLS SD","Big Sioux River / I-29","Sioux Falls. Big Sioux River falls visible. I-29/I-90 junction. City grid.",false],
+  [44.3231,-95.0303,"LAKE SHETEK MN","SW Minnesota lakes","Lake Shetek — largest lake in SW Minnesota. US-59 corridor. Flat prairie.",false],
+
+  // ── DET->CLE CORRIDOR (Lake Erie shore) ──────────────────────────────────
+  [41.9334,-83.3913,"LAKE ERIE SHORE","Lake Erie western end","Lake Erie western shore. Monroe MI area. US-23/I-75. Lake visible to N.",false],
+  [41.6639,-83.5552,"TOLEDO OH","Maumee River / I-75","Toledo on Maumee River. I-75/I-80/I-90. Maumee Bay on Lake Erie. Large city grid.",false],
+  [41.5242,-82.7135,"SANDUSKY OH","Lake Erie / Cedar Point","Sandusky on Lake Erie. Cedar Point peninsula — amusement park distinctive. US-6.",false],
+  [41.4993,-82.1829,"HURON OH","Lake Erie / US-6","Huron on Lake Erie. Huron River mouth. US-6 lakeside corridor. Small harbor.",false],
+  [41.4636,-81.5873,"CLEVELAND OH","Lake Erie / I-90","Cleveland. Lake Erie shore. Rock Hall visible (distinctive pyramid). I-90 lakeside.",false],
+
+  // ── CLE->PIT CORRIDOR (Ohio/Pennsylvania) ────────────────────────────────
+  [41.1095,-81.3417,"AKRON OH","Cuyahoga River / I-77","Akron on I-77/I-76. Cuyahoga River headwaters. Rubber industry smokestacks. City grid.",false],
+  [40.7982,-81.3784,"CANTON OH","Nimishillen Creek / I-77","Canton on I-77. Nimishillen Creek. Football Hall of Fame (distinctive building). City grid.",false],
+  [40.5887,-80.8003,"BEAVER FALLS PA","Beaver River / PA-18","Beaver Falls on Beaver River. PA-18. Flat river valley. Pittsburgh suburb.",false],
+
+  // ── ORD->DEN GAP (E Colorado / W Kansas) ─────────────────────────────────
+  [40.5853,-104.8202,"FORT COLLINS CO","Cache la Poudre River","Fort Collins on Cache la Poudre River. I-25 N of Denver. Rocky Mountain foothills to W.",false],
+  [40.1250,-104.9681,"LONGMONT CO","Front Range / US-287","Longmont on US-287. Front Range visible to W. Flat Eastern Colorado farming.",false],
+  [40.3977,-102.2678,"YUMA CO","E Colorado plains / US-34","Yuma on US-34. Very flat E Colorado. Grain elevators visible. No other landmarks.",false],
+  [39.8561,-100.8901,"MCCOOK NE","Republican River / US-6","McCook on Republican River. US-6/US-83 junction. Flat Republican River valley.",false],
+  [39.3500,-101.7500,"COLBY KS","I-70 / W Kansas","Colby on I-70. Flat W Kansas high plains. US-24. Very distinctive I-70 corridor.",false],
+  [40.6597,-101.2156,"IMPERIAL NE","US-6 / S Platte River","Imperial on US-6. S Platte River to N. Very flat SW Nebraska. Pivot irrigation circles.",false],
+
+  // ── DEN->ABQ GAP (S Colorado) ─────────────────────────────────────────────
+  [37.6690,-105.0095,"GREAT SAND DUNES","San Luis Valley landmark","Great Sand Dunes National Park — massive dune field in flat valley. Sangre de Cristo Mtns behind. Unmistakable.",true],
+  [37.2753,-107.8801,"DURANGO CO","Animas River / US-160","Durango on Animas River. US-160/US-550. Narrow gauge railroad visible. San Juan Mountains.",true],
+  [37.4783,-105.8731,"ALAMOSA CO","Rio Grande / San Luis Valley","Alamosa on Rio Grande. Flat San Luis Valley — enclosed by mountains. Great Sand Dunes to NE.",false],
+  [36.7294,-108.2104,"FARMINGTON NM","San Juan River / US-64","Farmington on San Juan River. US-64/US-550. Four Corners region. River visible.",false],
+  [38.2544,-104.6091,"PUEBLO CO","Arkansas River / I-25","Pueblo on Arkansas River. I-25/US-50 junction. Steel mill (distinctive). Flat Cañon City below.",false],
+  [37.3389,-107.9814,"MESA VERDE NM","Cliff dwellings mesa","Mesa Verde National Park — flat-topped mesa with cliff dwellings. US-160. Very distinctive.",true],
+
+  // ── DSM->DEN / DFW->DEN CORRIDOR (Kansas/Oklahoma/Colorado) ─────────────
+  [39.0558,-96.5717,"MANHATTAN KS","Kansas River / US-24","Manhattan on Kansas River. US-24/US-77. Kansas State University. Milford Lake to W.",false],
+  [38.8403,-97.6114,"SALINA KS","Smoky Hill River / I-70","Salina on I-70/I-135. Smoky Hill River. Flat central Kansas. Major junction visible.",false],
+  [38.4717,-98.7784,"GREAT BEND KS","Arkansas River / US-56","Great Bend on Arkansas River — named for river's great bend, visible from altitude. US-56.",false],
+  [37.6922,-99.3242,"DODGE CITY KS","Arkansas River / US-283","Dodge City on Arkansas River. US-283/US-56. Flat SW Kansas. Boot Hill.",false],
+  [37.5839,-100.3580,"FORD KS","Arkansas River / US-400","Ford on Arkansas River. US-400 E-W corridor. Flat high plains. Pivot irrigation.",false],
+  [36.6751,-102.5014,"BOISE CITY OK","Oklahoma Panhandle / US-56","Boise City in OK Panhandle. US-56/US-385. Very flat. Only town for 60nm. Black Mesa to W.",false],
+  [36.7319,-103.5224,"RATON NM","Raton Pass / I-25","Raton Pass — I-25 crossing of Sangre de Cristo. 7,834ft. Dramatic grade visible.",true],
+  [37.4000,-105.4200,"LA VETA PASS CO","CO-160 mountain pass","La Veta Pass on CO-160. 9,382ft. Sangre de Cristo Mountains. Spanish Peaks visible.",true],
+  [36.9700,-104.5400,"CIMARRON CANYON NM","E New Mexico mountain","Cimarron Canyon on US-64. Eagle Nest Lake visible. Sangre de Cristo foothills.",false],
+
+  // ── DEN->SLC CORRIDOR (Uinta Mountains/Dinosaur) ──────────────────────────
+  [40.4555,-106.8318,"STEAMBOAT SPRINGS CO","Yampa River / US-40","Steamboat Springs on Yampa River. US-40 corridor. Ski area visible. Yampa Valley.",false],
+  [40.4677,-108.7585,"VERNAL UT","Uinta Basin / US-40","Vernal on US-40. Uinta Basin. Flaming Gorge Reservoir to N. Dinosaur fossils area.",false],
+  [40.1885,-109.7456,"DINOSAUR CO/UT","Green/Yampa River canyon","Dinosaur National Monument. Green/Yampa River canyons. US-40. Dramatic canyon system.",true],
+  [40.6555,-110.7374,"DUCHESNE UT","Duchesne River / US-40","Duchesne on Duchesne River. US-40/US-191. Uinta Mountains to N. High basin.",false],
+  [40.5308,-112.2981,"TOOELE UT","I-80 / Salt Flats","Tooele on I-80 W of SLC. Bonneville Salt Flats to W — white expanse visible. Stansbury Mtns.",false],
+  [40.7278,-111.3882,"UINTA MOUNTAINS","High Uintas Wilderness","Uinta Mountains — only E-W trending range in contiguous US. Kings Peak 13,528ft. Snow-capped.",true],
+
+  // ── ABQ->TUS CORRIDOR (Arizona) ───────────────────────────────────────────
+  [34.6478,-108.4889,"GALLUP NM / AZ","I-40 / AZ border","Gallup on I-40 near AZ border. Navajo Nation. Red Rock Country begins. Zuni Mountains.",false],
+  [34.8697,-110.1355,"HOLBROOK AZ","Painted Desert / I-40","Holbrook on I-40. Painted Desert to N. Petrified Forest National Park. Flat desert.",false],
+  [35.1983,-111.6513,"FLAGSTAFF AZ","San Francisco Peaks","Flagstaff. San Francisco Peaks — highest point in AZ at 12,633ft. I-40/I-17 junction.",true],
+  [34.1478,-110.2951,"SHOW LOW AZ","Mogollon Rim / AZ-60","Show Low on Mogollon Rim. AZ-60. Dramatic escarpment edge. Pine forests above desert.",true],
+  [33.4152,-111.8315,"MESA AZ","Salt River / I-60","Mesa near Phoenix. Salt River/Roosevelt Lake to E. I-60/US-60. Phoenix sprawl visible.",false],
+  [32.2217,-110.9265,"CATALINA MOUNTAINS","Tucson Basin landmark","Santa Catalina Mountains north of Tucson. Highest point 9,157ft. Tucson basin below.",true],
+
+  // ── SLC->LAS CORRIDOR (W Utah/S Nevada) ──────────────────────────────────
+  [39.5563,-111.5028,"NEPHI UT","Sevier River / I-15","Nephi on I-15/US-6. Sevier River. Flat Juab Valley. San Pitch Mountains to E.",false],
+  [38.5247,-112.5842,"FILLMORE UT","Sevier River / I-15","Fillmore on I-15. First Utah state capital. Black Rock Desert to W. Flat Sevier Valley.",false],
+  [38.0696,-113.0609,"BEAVER UT","Tushar Mountains / I-15","Beaver on I-15. Tushar Mountains to E — 12,000ft peaks. Flat valley. I-15 visible.",true],
+  [37.6775,-113.0607,"CEDAR CITY UT","I-15 / Markagunt Plateau","Cedar City on I-15. Markagunt Plateau above. Cedar Breaks National Monument. Zion to S.",true],
+  [37.0800,-114.0100,"BEAVER DAM WASH","UT/AZ/NV corner","Beaver Dam Wash — tristate area UT/AZ/NV. I-15 winds through Virgin River gorge.",false],
+  [36.7170,-114.4750,"VIRGIN RIVER GORGE","I-15 canyon","Virgin River Gorge — dramatic canyon where I-15 squeezes through. Very distinctive.",true],
+  [37.4583,-115.3660,"RACHEL NV","US-93 / Area 51","Rachel NV on US-93. Nevada Test Site and Area 51 to SW. Very flat. No other features.",false],
+  [36.2063,-115.9764,"BOULDER CITY NV","US-93 / Hoover Dam approach","Boulder City on US-93. Built for Hoover Dam workers. Lake Mead visible to E.",false],
+
+  // ── BIL->BZN CORRIDOR (Yellowstone River) ────────────────────────────────
+  [45.7833,-108.5007,"BILLINGS MT","Yellowstone River / I-90","Billings on Yellowstone River. I-90/US-87. Rimrocks cliffs above city — distinctive. Largest MT city.",false],
+  [46.0090,-109.6472,"HARLOWTON MT","Musselshell River / US-12","Harlowton on Musselshell River. US-12 E-W corridor. Isolated small town in high plains.",false],
+  [45.6767,-110.5617,"LIVINGSTON MT","Yellowstone River / I-90","Livingston on Yellowstone River. I-90. Absaroka Range to S. Gateway to Yellowstone.",false],
+  [45.6770,-109.8388,"BIG TIMBER MT","Yellowstone River / I-90","Big Timber on Yellowstone River. I-90 follows river W. Boulder River to S.",false],
+  [45.7833,-111.1501,"BOZEMAN MT","Gallatin River / I-90","Bozeman on Gallatin River. I-90/US-191. Bridger Range to N. Montana State University.",false],
+
+  // ── GENERAL US PILOTAGE FEATURES MISSING FROM DATABASE ───────────────────
+  // Major river crossings and valley features
+  [44.9537,-93.0900,"ST PAUL MN","Mississippi River / I-94","St Paul on Mississippi River. I-94/I-35E junction. State Capitol dome. River bluffs.",false],
+  [41.2565,-95.9345,"OMAHA NE","Missouri River / I-80","Omaha on Missouri River. I-80 bridge. TD Ameritrade Park. Large city grid. Council Bluffs IA across river.",false],
+  [38.9693,-92.4793,"COLUMBIA MO","I-70 / US-63 junction","Columbia on I-70/US-63. University of Missouri. Flat central Missouri. Major I-70 stop.",false],
+  [37.9643,-87.5714,"EVANSVILLE IN","Ohio River / US-41","Evansville on Ohio River. US-41 bridge. Henderson KY across river. River bend visible.",false],
+  [38.2527,-85.7585,"LOUISVILLE KY","Ohio River / I-65","Louisville on Ohio River. I-65 bridge. Churchill Downs visible. City grid.",false],
+  [39.1031,-84.5120,"CINCINNATI OH","Ohio River / I-75","Cincinnati on Ohio River. I-75/I-71 bridges. Covington KY across river. Suspension bridge.",false],
+  [38.0406,-84.5037,"LEXINGTON KY","Bluegrass region / I-75","Lexington in Bluegrass Country. I-75/I-64. Horse farms (distinctive white fence patterns). UK campus.",false],
+  [36.1627,-86.7816,"NASHVILLE TN","Cumberland River / I-24","Nashville on Cumberland River. I-24/I-65/I-40 junction. Nissan Stadium. City grid.",false],
+  [36.5298,-87.3595,"CLARKSVILLE TN","Cumberland River / I-24","Clarksville on Cumberland River. I-24 corridor. Fort Campbell (huge military reservation) to N.",false],
+  [35.5175,-86.5804,"COLUMBIA TN","Duck River / I-65","Columbia on Duck River. I-65 corridor. Flat central Tennessee. US-31 N-S.",false],
+  [35.9606,-83.9207,"KNOXVILLE TN","Tennessee River / I-40","Knoxville. Tennessee River. I-40/I-75/I-640 junction. Distinctive river loops through city.",false],
+  [36.3134,-82.3535,"JOHNSON CITY TN","Watauga River / I-26","Johnson City on I-26. Watauga River. Appalachian Mountains. Tri-Cities airport nearby.",false],
+  [35.7721,-78.6386,"RALEIGH NC","Falls Lake / I-40","Raleigh on I-40. Falls Lake to N. State Capitol. Research Triangle Park. City grid.",false],
+  [36.0726,-79.7920,"GREENSBORO NC","High Point Lake / I-40","Greensboro on I-40/I-85. High Point Lake. City grid. I-85 corridor to Charlotte.",false],
+  [35.2271,-80.8431,"CHARLOTTE NC","Lake Norman / I-77","Charlotte. Lake Norman to N — large reservoir. I-77/I-85/I-485 beltway. City grid.",false],
+  [34.1954,-79.7626,"FLORENCE SC","PeeDee River / I-95","Florence on I-95/I-20. PeeDee River. Flat SC coastal plain. Major I-95 junction.",false],
+  [33.5765,-79.0499,"MYRTLE BEACH SC","Atlantic Coast / US-501","Myrtle Beach. Long straight coastline. US-501 leads to Grand Strand. Very flat.",false],
+  [32.0809,-81.0912,"SAVANNAH GA","Savannah River / I-95","Savannah on Savannah River. I-95 bridge. Historic squares visible from low altitude.",false],
+  [30.3322,-81.6557,"JACKSONVILLE FL","St Johns River / I-95","Jacksonville. St Johns River flows N (unusual). I-95 bridges. Largest FL city by area.",false],
+  [29.6516,-82.3248,"GAINESVILLE FL","Paynes Prairie / I-75","Gainesville on I-75. Paynes Prairie — large flat wetland visible S of city. UF campus.",false],
+  [28.5383,-81.3792,"ORLANDO FL","Lake chain / I-4","Orlando. I-4 corridor. Disney World to SW — castle visible. Multiple lakes. City grid.",false],
+  [27.9477,-82.4584,"TAMPA FL","Tampa Bay / I-275","Tampa on Tampa Bay. Howard Frankland Bridge (I-275). Sunshine Skyway Bridge to S. Bay visible.",false],
+  [27.3364,-82.5307,"SARASOTA FL","Sarasota Bay / US-41","Sarasota on Sarasota Bay. Barrier islands visible. US-41 corridor. City grid.",false],
+  [26.7153,-80.0534,"LAKE OKEECHOBEE","Largest US freshwater lake S of Great Lakes","Lake Okeechobee — huge shallow lake. Herbert Hoover Dike visible (earthen ring). US-27.",false],
+  [25.7617,-80.1918,"MIAMI FL","Biscayne Bay / I-95","Miami. Biscayne Bay. I-95 corridor. Art Deco South Beach. Key Biscayne. City grid.",false],
+
+  // Great Lakes corridor
+  [43.0481,-76.1474,"LAKE ONTARIO SHORE","E Lake Ontario / I-81","Lake Ontario S shore. Oswego on I-81. Salmon River. NY lake corridor.",false],
+  [42.8940,-78.8684,"NIAGARA FALLS NY","Niagara River / I-190","Niagara Falls — waterfall visible from altitude. Niagara River. Rainbow Bridge. US/Canada border.",true],
+  [42.2808,-83.7430,"ANN ARBOR MI","Huron River / I-94","Ann Arbor on Huron River. I-94/US-23. U of Michigan football stadium (largest in US).",false],
+  [43.0125,-83.6875,"FLINT MI","Flint River / I-75","Flint on Flint River. I-75/I-69 junction. GM manufacturing plants visible.",false],
+  [43.6532,-84.2472,"MT PLEASANT MI","Chippewa River / US-127","Mt Pleasant on Chippewa River. US-127. Central Michigan University campus.",false],
+  [44.7631,-85.6206,"TRAVERSE CITY MI","Grand Traverse Bay","Traverse City on Grand Traverse Bay — distinctive double-arm bay on Lake Michigan. US-31.",false],
+  [46.4953,-84.3453,"ST IGNACE MI","Mackinac Bridge","Mackinac Bridge — 5-mile bridge between Lower/Upper MI. Straits of Mackinac. Very distinctive.",true],
+  [44.5133,-88.0133,"GREEN BAY WI","Green Bay / Fox River","Green Bay on Fox River. Green Bay (Lake Michigan arm). I-43. Lambeau Field visible.",false],
+  [43.0731,-89.4012,"MADISON WI","Lake Mendota / I-90","Madison between Lake Mendota and Lake Monona. I-90/I-94 junction. State Capitol on isthmus.",false],
+  [44.0121,-92.4802,"ROCHESTER MN","Zumbro River / US-52","Rochester on Zumbro River. US-52/US-63. Mayo Clinic campus — large medical complex visible.",false],
+  [43.5446,-96.7311,"SIOUX FALLS SD","Big Sioux River falls","Sioux Falls. Big Sioux River falls downtown. I-29/I-90 junction. Large SD city.",false],
+  [43.0017,-76.1132,"SYRACUSE NY","Onondaga Lake / I-81","Syracuse. Onondaga Lake (N shore). I-81/I-90 junction. Salt museum. City grid.",false],
+  [42.8864,-78.8784,"BUFFALO NY","Lake Erie / I-90","Buffalo on Lake Erie. I-90/I-190. Peace Bridge to Canada. Niagara River to N.",false],
+
+  // Pacific Northwest details
+  [47.6062,-122.3321,"SEATTLE WA","Puget Sound / I-5","Seattle. Puget Sound. Space Needle visible. I-5 corridor. Olympic Mountains to W.",true],
+  [47.2529,-122.4443,"TACOMA WA","Commencement Bay / I-5","Tacoma on Commencement Bay. I-5/SR-16. Tacoma Narrows Bridge. Mt Rainier to SE.",false],
+  [46.9965,-120.5478,"ELLENSBURG WA","Yakima River / I-90","Ellensburg on Yakima River. I-90 E-W. Kittitas Valley — very flat farming valley.",false],
+  [47.5001,-120.5015,"WENATCHEE WA","Columbia River / US-2","Wenatchee on Columbia River. US-2/97. Cascade foothills. Apple orchards. River bend.",false],
+  [48.4244,-119.5533,"OKANOGAN WA","Okanogan River / US-97","Okanogan on Okanogan River. US-97 N-S corridor. Flat irrigated valley. Okanogan Highlands.",false],
+  [46.2396,-119.1370,"PASCO WA","Columbia/Snake Rivers junction","Pasco/Kennewick/Richland — Columbia and Snake Rivers meet here. Very distinctive Y-junction.",false],
+  [46.7298,-117.0000,"PULLMAN WA","Palouse Hills / US-195","Pullman on US-195. Palouse Hills — distinctive rolling wheat fields. Washington State Univ.",false],
+  [45.3272,-118.0856,"PENDLETON OR","Umatilla River / I-84","Pendleton on Umatilla River. I-84/US-395 junction. Flat Columbia Basin. Pendleton Round-Up grounds.",false],
+  [44.9429,-123.0351,"SALEM OR","Willamette River / I-5","Salem on Willamette River. I-5 corridor. State Capitol dome. Willamette Valley farming.",false],
+  [44.0521,-123.0868,"EUGENE OR","Willamette River / I-5","Eugene on Willamette River. I-5/I-105. University of Oregon. Autzen Stadium. City grid.",false],
+
+  // California missing coverage
+  [37.3861,-122.0839,"SAN JOSE CA","Santa Clara Valley / US-101","San Jose. Santa Clara Valley. US-101/I-280. Tech campuses visible. City grid.",false],
+  [36.7783,-119.4179,"FRESNO CA","San Joaquin Valley / CA-99","Fresno on CA-99. Flat San Joaquin Valley. Kings River to E. Large city grid.",false],
+  [35.3733,-119.0187,"BAKERSFIELD CA","CA-99 / Kern River","Bakersfield on Kern River. CA-99/CA-58 junction. Oil derricks visible. Flat valley.",false],
+  [34.4208,-119.6982,"SANTA BARBARA CA","US-101 / coast","Santa Barbara on US-101. Pacific coast. Channel Islands visible offshore. Distinctive.",false],
+  [34.0195,-118.4912,"MALIBU / PCH","Pacific Coast Highway","Pacific Coast Highway along Malibu coastline. PCH visible as coastal thread. Santa Monica Mtns.",false],
+  [37.8044,-122.2712,"OAKLAND CA","San Francisco Bay / I-880","Oakland on SF Bay. Bay Bridge visible. I-880/I-580. Port cranes visible from altitude.",false],
+  [38.3382,-122.7144,"PETALUMA CA","Petaluma River / US-101","Petaluma on US-101. Petaluma River to bay. North Bay flatlands. Dairy farms.",false],
+  [38.5780,-121.4945,"SACRAMENTO CA","Sacramento River / I-5","Sacramento on Sacramento River. I-5/US-50/I-80 junction. State Capitol dome. City grid.",false],
+  [39.7285,-121.8375,"CHICO CA","Sacramento River / CA-99","Chico on Sacramento River. CA-99/CA-32. Flat Sacramento Valley. Bidwell Park visible.",false],
+  [40.5865,-122.3917,"REDDING CA","Sacramento River / I-5","Redding on Sacramento River. I-5. Shasta Dam to N — very distinctive. Mt Shasta to N.",false],
+  [41.5868,-122.3937,"MT SHASTA CA","Cascade volcano 14,179ft","Mt Shasta — massive isolated Cascade volcano, 14,179ft. Visible 100+ miles. I-5 at base.",true],
+  [42.3265,-122.8756,"MEDFORD OR","Rogue River / I-5","Medford on Rogue River. I-5 S Oregon. Rogue Valley. Cascade Range to E.",false],
+
+  // Additional Southwest coverage
+  [33.4152,-112.0740,"PHOENIX AZ","Salt River / I-10","Phoenix. Salt River (dry). I-10/I-17 junction. Sky Harbor airport. Large metro grid.",false],
+  [33.5779,-112.2359,"LAKE PLEASANT AZ","Agua Fria River reservoir","Lake Pleasant — blue reservoir NW of Phoenix. Agua Fria River. Distinctive in desert.",false],
+  [34.8567,-114.6139,"NEEDLES CA","Colorado River / I-40","Needles on Colorado River. I-40/US-95. AZ/CA border. River very distinctive in desert.",false],
+  [34.1478,-116.0544,"JOSHUA TREE NM","Mojave Desert landmark","Joshua Tree National Park. Distinctive boulder formations. I-10 to S. Very flat desert.",false],
+  [33.8303,-117.9143,"RIVERSIDE CA","I-15 + I-215 junction","Riverside on I-15/I-215/CA-91 junction. Santa Ana River. Large Inland Empire city grid.",false],
+
+  // Rocky Mountain passes and features
+  [39.1478,-106.4172,"INDEPENDENCE PASS CO","CO-82 / Continental Divide","Independence Pass on CO-82. 12,095ft. Narrow road visible as switchbacks. Twin Lakes below.",true],
+  [39.5408,-105.9969,"BERTHOUD PASS CO","US-40 / Continental Divide","Berthoud Pass on US-40. 11,307ft. Divide crossing. Winter Park to W. Very clear from altitude.",true],
+  [38.4617,-106.3441,"MONARCH PASS CO","US-50 / Continental Divide","Monarch Pass on US-50. 11,312ft. Gunnison to W. Salida to E. Ski area visible.",true],
+  [37.8268,-107.6668,"RED MOUNTAIN PASS CO","US-550 / San Juan Mtns","Red Mountain Pass on US-550. 11,075ft. Million Dollar Highway. Ouray below. Dramatic.",true],
+  [39.0997,-108.5506,"GRAND JUNCTION CO","Colorado River / I-70","Grand Junction on Colorado River. I-70/US-6. Book Cliffs to N — dramatic escarpment. Flat valley.",false],
+  [38.8339,-104.8214,"PIKES PEAK CO","Front Range / US-24","Pikes Peak — 14,115ft. Very distinctive isolated peak visible from 100nm E on plains.",true],
+  [39.7392,-104.9903,"DENVER METRO","Front Range / I-25","Denver. I-25 corridor. Mile High Stadium. Front Range behind. City grid.",false],
+  [38.2544,-104.6091,"PUEBLO CO","Arkansas River / I-25","Pueblo on Arkansas River. I-25/US-50. Steel mill. Flat S Colorado.",false],
+
+  // Texas additional
+  [31.5493,-97.1467,"WACO TX","Brazos River / I-35","Waco on Brazos River. I-35/US-84. Lake Waco to W. Baylor University stadium.",false],
+  [31.1171,-97.7278,"FORT HOOD TX","Leon River military","Fort Hood — largest US military base. Very distinctive on sectional. Leon River. US-190.",true],
+  [30.6254,-96.3343,"COLLEGE STATION TX","Brazos River / TX-6","College Station. Texas A&M campus — Kyle Field stadium distinctive. Brazos River nearby.",false],
+  [30.0799,-94.1318,"BEAUMONT TX","Neches River / I-10","Beaumont on Neches River. I-10/US-90. Oil refineries visible. Flat SE Texas.",false],
+  [29.7604,-95.3698,"HOUSTON TX","Buffalo Bayou / I-610","Houston. Buffalo Bayou. I-610 loop visible. NASA JSC to SE. Large city grid.",false],
+  [27.5006,-99.5075,"LAREDO TX","Rio Grande / I-35","Laredo on Rio Grande. I-35/US-83. US/Mexico border. Nuevo Laredo across river.",false],
+  [26.2034,-98.2300,"MCALLEN TX","Rio Grande / US-83","McAllen on Rio Grande. US-83 corridor. Mexico across river. Very flat Rio Grande Valley.",false],
+
+  // Nebraska/Kansas/Oklahoma additional
+  [40.8136,-96.7026,"LINCOLN NE","Salt Creek / I-80","Lincoln on I-80/US-77. State Capitol (tall tower). University of Nebraska. City grid.",false],
+  [41.2565,-95.9345,"OMAHA NE","Missouri River / I-80","Omaha on Missouri River. I-80/I-29 bridge. TD Ameritrade Park. City grid.",false],
+  [41.0534,-98.3376,"GRAND ISLAND NE","Platte River / US-281","Grand Island on Platte River. US-281/US-30. I-80 to S. Flat river valley.",false],
+  [40.9251,-98.3426,"PLATTE RIVER NE","I-80 / water","Platte River at Grand Island. I-80 follows river. Very wide shallow river. Sandhill cranes.",false],
+  [36.1540,-95.9928,"TULSA OK","Arkansas River / I-44","Tulsa on Arkansas River. I-44/I-244. BOK Center dome. City grid.",false],
+  [35.4676,-97.5164,"OKLAHOMA CITY","I-40 + I-35 junction","OKC. I-40/I-35/I-44 junction. Chesapeake Energy Arena. City grid. Will Rogers Airport.",false],
+
+  // Iowa/Illinois/Indiana
+  [41.5868,-93.6249,"DES MOINES IA","Des Moines River / I-80","Des Moines on Des Moines River. I-80/I-235. State Capitol dome. City grid.",false],
+  [42.0308,-93.6319,"AMES IA","Skunk River / I-35","Ames on I-35. Iowa State University. Skunk River. Flat central Iowa.",false],
+  [41.8781,-87.6298,"CHICAGO IL","Lake Michigan / I-90","Chicago. Lake Michigan shore. Skyline visible 60nm. I-90/I-94/I-290 spaghetti junction.",true],
+  [41.4764,-87.3311,"GARY IN","Lake Michigan / I-80","Gary on Lake Michigan. I-80/I-90/I-94. US Steel mills — very distinctive. Flat.",false],
+  [41.5931,-87.3461,"MICHIGAN CITY IN","Lake Michigan shore","Michigan City on Lake Michigan. I-94. Indiana Dunes visible. Flat shoreline.",false],
+  [39.7684,-86.1581,"INDIANAPOLIS IN","White River / I-465","Indianapolis. White River. I-465 beltway. Indy Motor Speedway (oval track) visible.",false],
+  [39.1654,-86.5264,"BLOOMINGTON IN","Salt Creek / IN-37","Bloomington on IN-37. Indiana University stadium. Monroe Lake to SE.",false],
+  [40.4173,-86.1341,"LAFAYETTE IN","Wabash River / I-65","Lafayette on Wabash River. I-65/US-52. Purdue University. River bends.",false],
+
+  // Michigan/Wisconsin/Minnesota
+  [42.7325,-84.5555,"LANSING MI","Grand River / I-96","Lansing on Grand River. I-96/I-496. State Capitol. Michigan State nearby. City grid.",false],
+  [42.9634,-85.6681,"GRAND RAPIDS MI","Grand River / I-96","Grand Rapids on Grand River. I-96/I-196/I-96. Flat W Michigan. Lake Michigan to W.",false],
+  [42.0887,-86.4778,"BENTON HARBOR MI","Lake Michigan / I-94","Benton Harbor/St Joseph on Lake Michigan. I-94/I-196. Fruit belt. Harbor visible.",false],
+  [44.9778,-93.2650,"MINNEAPOLIS MN","Mississippi River / I-35","Minneapolis on Mississippi River. I-35/I-94. St Anthony Falls visible. City grid.",false],
+  [44.0274,-92.4699,"ROCHESTER MN","Zumbro River / US-52","Rochester on Zumbro River. US-52/US-63. Mayo Clinic complex visible. City grid.",false],
+  [46.7867,-92.1005,"DULUTH MN","Lake Superior / I-35","Duluth on Lake Superior. I-35 ends. Aerial lift bridge visible. Ore docks.",false],
+  [47.9253,-97.0329,"GRAND FORKS ND","Red River / I-29","Grand Forks on Red River. I-29/US-2. Very flat Red River Valley. ND/MN border.",false],
+  [46.8772,-96.7898,"FARGO ND","Red River / I-94","Fargo on Red River. I-94/I-29. ND/MN border. Very flat. Largest ND city.",false],
+  [46.8797,-100.7677,"BISMARCK ND","Missouri River / I-94","Bismarck on Missouri River. I-94/US-83. State Capitol (tall tower). River bends.",false],
+  [43.5473,-96.7313,"SIOUX CITY IA","Missouri River / I-29","Sioux City on Missouri River. I-29/I-129. NE/IA/SD tristate. River junction.",false],
+
+  // Mountain West additional
+  [47.6588,-117.4260,"SPOKANE WA","Spokane River / I-90","Spokane on Spokane River. I-90/US-395 junction. Falls downtown. E WA agricultural area.",false],
+  [46.8721,-113.9940,"MISSOULA MT","Clark Fork River / I-90","Missoula on Clark Fork River. I-90/US-93. University of Montana. Mountain-ringed valley.",false],
+  [47.4942,-111.2833,"GREAT FALLS MT","Missouri River / US-87","Great Falls on Missouri River. US-87/US-89. Giant Springs. Malmstrom AFB visible.",false],
+  [45.7833,-108.5007,"BILLINGS MT","Rimrocks / Yellowstone R","Billings. Rimrock cliffs above city — very distinctive. Yellowstone River.",false],
+  [44.0805,-103.2310,"RAPID CITY SD","Black Hills / I-90","Rapid City on I-90. Black Hills to W. Mt Rushmore nearby. Entry to Black Hills.",false],
+  [43.5473,-116.5630,"BOISE ID","Boise River / I-84","Boise on Boise River. I-84/US-20/US-26. State Capitol. Snake River Plain visible.",false],
+  [42.5630,-114.4609,"TWIN FALLS ID","Snake River Canyon / US-93","Twin Falls on Snake River Canyon. US-93/US-30. Perrine Bridge over 486ft gorge.",true],
+  [43.4799,-112.0391,"POCATELLO ID","Portneuf River / I-15","Pocatello on Portneuf River. I-15/I-86. Snake River Plain. Mountain gateway.",false],
+  [46.5958,-112.0270,"HELENA MT","Missouri River headwaters / I-15","Helena on I-15/US-12. State Capitol. Continental Divide to W. Gates of the Mountains.",false],
+  // ── KDFW->KDEN REMAINING GAP (Oklahoma/Kansas/SE Colorado) ───────────────
+  [35.4676,-97.5164,"OKLAHOMA CITY OK","I-35 + I-40 junction","OKC. I-35/I-40 major junction. Chesapeake Arena dome. City grid.",false],
+  [36.1540,-95.9928,"TULSA OK","Arkansas River / I-44","Tulsa on Arkansas River. I-44/I-244. BOK Center dome. Arkansas River visible.",false],
+  [36.8667,-99.3957,"WOODWARD OK","North Canadian River / US-270","Woodward on North Canadian River. US-270/US-412. Flat NW Oklahoma. Wheat fields.",false],
+  [37.3369,-98.2003,"PRATT KS","Ninnescah River / US-281","Pratt on Ninnescah River. US-281/US-54. Flat S Kansas wheat country.",false],
+  [37.6922,-99.3242,"DODGE CITY KS","Arkansas River / US-283","Dodge City on Arkansas River. Flat SW Kansas. US-283/US-56. Boot Hill.",false],
+  [38.0406,-100.8601,"GARDEN CITY KS","Arkansas River / US-83","Garden City on Arkansas River. US-83/US-50. Flat W Kansas. Feedlots visible.",false],
+  [37.0220,-101.7794,"LIBERAL KS","Cimarron River / US-83","Liberal on Cimarron River. US-83/US-270. OK/KS border. Very flat high plains.",false],
+  [37.6900,-102.0175,"LAMAR CO","Arkansas River / US-50","Lamar on Arkansas River. US-50/US-287. Flat SE Colorado. River valley visible.",false],
+  [38.2680,-104.2084,"PUEBLO CO E","Arkansas River / US-50","Arkansas River E of Pueblo. US-50 corridor. Flat plains meeting Front Range.",false],
+
+  // ── KSAT->KPDX REMAINING GAP (Central Nevada) ────────────────────────────
+  [40.6972,-116.1736,"CARLIN NV","Humboldt River / I-80","Carlin on Humboldt River. I-80. Carlin Canyon — dramatic gorge. Gold mines visible.",true],
+  [40.7380,-117.9290,"WINNEMUCCA NV E","Humboldt River / I-80","Humboldt River valley E of Winnemucca. I-80 follows river. Very flat basin.",false],
+  [40.9754,-118.6183,"LOVELOCK NV","Humboldt Sink / I-80","Lovelock on I-80. Humboldt Sink to S — where Humboldt River disappears. Very flat playa.",false],
+  [40.5834,-117.2153,"BATTLE MTN / HUMBOLDT R","Humboldt River valley","Humboldt River between Battle Mountain and Carlin. I-80 follows river. Mining operations.",false],
+  [39.5197,-119.8143,"RENO NV","Truckee River / I-80","Reno on Truckee River. I-80/US-395. Sierra Nevada to W. Very distinctive city.",false],
 ];
 
 // Known route frequencies (keyed by airport pairs or individual airports)
@@ -23572,36 +23945,66 @@ function scoreCandidate(c, dep, dest) {
   const frac = fracAlong(c.lat, c.lon, dep.lat, dep.lon, dest.lat, dest.lon);
   if (frac < 0.02 || frac > 0.98) return null;
   const proxScore = Math.max(0, (50 - crossDist) * 2.8);
-  const score = proxScore + c.basePriority + (c.terrainWarn ? 20 : 0);
+
+  // VFR feature bonus — natural features pilots actually navigate by
+  const txt = ((c.sublabel||'') + ' ' + (c.note||'')).toLowerCase();
+  const isRiver    = /(river|creek|gorge|canyon|waterway)/.test(txt);
+  const isLake     = /(lake|reservoir|bay|sound|inlet|sea)/.test(txt);
+  const isMountain = /(mountain|peak|pass|range|ridge|volcano|summit|plateau|mesa|butte)/.test(txt);
+  const isDistinct = /(grand canyon|monument valley|crater|glacier|falls|dam)/.test(txt);
+  const isHighway  = /(interstate|i-\d|us-\d|highway|junction)/.test(txt);
+
+  const featureBonus = isDistinct ? 30 : isMountain ? 22 : isRiver ? 20 : isLake ? 18 : isHighway ? 8 : 0;
+
+  const score = proxScore + c.basePriority + featureBonus + (c.terrainWarn ? 20 : 0);
   return { ...c, frac, crossDist, score };
 }
 
 // Select evenly-spaced waypoints from scored pool
 function selectFromPool(pool, numWp) {
-  if (!Array.isArray(pool)) return [];
-  // Deduplicate: no two within 8nm
+  if (!Array.isArray(pool) || pool.length === 0) return [];
+
+  // Sort pool by score descending — already sorted, but ensure it
+  const sorted = [...pool].sort((a, b) => b.score - a.score);
+
+  // Deduplicate within 5nm, keeping highest score
   const deduped = [];
-  for (const c of pool) {
-    if (!deduped.some(p => haversine(p.lat, p.lon, c.lat, c.lon) < 6)) {
+  for (const c of sorted) {
+    if (!deduped.some(p => haversine(p.lat, p.lon, c.lat, c.lon) < 5)) {
       deduped.push(c);
-      if (deduped.length >= numWp * 4) break;
+      if (deduped.length >= numWp * 6) break;
     }
   }
 
-  const adaptiveDelta = Math.min(0.65, Math.max(0.35,
-    0.35 + (1 - deduped.length / (numWp * 2)) * 0.30
+  // Normalise scores 0-1 for weighting
+  const maxScore = deduped[0]?.score || 1;
+  const minScore = deduped[deduped.length - 1]?.score || 0;
+  const scoreRange = Math.max(1, maxScore - minScore);
+
+  const adaptiveDelta = Math.min(0.70, Math.max(0.40,
+    0.40 + (1 - deduped.length / (numWp * 2)) * 0.30
   ));
 
   const selected = [];
   for (let i = 1; i <= numWp; i++) {
     const ideal = i / (numWp + 1);
-    let best = null, bestD = Infinity;
+    let best = null, bestCombined = Infinity;
+
     for (const c of deduped) {
       if (selected.includes(c)) continue;
-      const d = Math.abs(c.frac - ideal);
-      if (d < bestD) { bestD = d; best = c; }
+      const fracDist = Math.abs(c.frac - ideal);
+      if (fracDist > adaptiveDelta) continue;
+
+      // Score weight: high-scoring features can be up to 0.12 frac units "closer"
+      // This lets Monument Valley at frac=0.48 beat a private strip at frac=0.43
+      // for ideal slot 0.44, when Monument Valley scores much higher
+      const scoreNorm = (c.score - minScore) / scoreRange; // 0-1
+      const scoreCredit = scoreNorm * 0.12; // max 0.12 frac units credit
+      const combined = fracDist - scoreCredit;
+
+      if (combined < bestCombined) { bestCombined = combined; best = c; }
     }
-    if (best && bestD < adaptiveDelta) selected.push(best);
+    if (best) selected.push(best);
   }
   return selected;
 }
@@ -23698,7 +24101,7 @@ async function generateWaypoints(dep, dest, numWp, cruiseAlt, terrainPts) {
     const isHub     = /^K(ATL|ORD|DFW|DEN|LAX|SFO|SEA|MIA|JFK|EWR|LGA|BOS|MSP|DTW|IAH|PHX|CLT|MCO|SLC|MDW|PDX|SAN|TPA|IAD|BWI|BNA|MCI|STL|CLE|RDU|MEM|PIT|CVG|IND|CMH|DAY|BUF|ALB|ROC|SYR|MKE|MSY|SAT|AUS|LIT|TUL|OKC|ABQ|ELP|TUS|BOI|FAI|ANC)$/.test(icao);
 
     // Score tiers — private strips only compete when nothing better nearby
-    const typeBonus = isHub ? 45 : isTowered ? 25 : isPrivate ? 1 : 14;
+    const typeBonus = isHub ? 45 : isTowered ? 25 : isPrivate ? 0 : 14; // private strips score pure proximity only
     const elevBonus = (elev > 0 && elev < 15000) ? 3 : 0;
     const hasGeoName = /county|municipal|regional|intl|international|executive|memorial/i.test(name);
     const geoBonus  = hasGeoName ? 10 : 0;
