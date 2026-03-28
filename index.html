@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Navly — VFR Pilotage Planner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link id="gfonts" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --ink:#0d1117;--paper:#f5f0e8;--blue:#1a4a7a;--cyan:#00b4d8;
   --amber:#e6820a;--red:#c0392b;--green:#2e7d32;--yellow:#f0c040;
-  --mono:'Share Tech Mono',monospace;--cond:'Barlow Condensed',sans-serif;
-  --body:'Barlow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',Consolas,monospace;--cond:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+  --body:'Barlow','Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--ink);color:var(--paper);font-family:var(--body);min-height:100vh;}
@@ -44,7 +46,10 @@ header::after{content:'';position:absolute;bottom:-5px;left:0;right:0;height:3px
 .field{display:flex;flex-direction:column;gap:4px;flex:1;}
 label{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:rgba(245,240,232,.5);text-transform:uppercase;}
 input[type=text],input[type=number]{background:rgba(0,0,0,.4);border:1px solid rgba(0,180,216,.3);color:var(--paper);font-family:var(--mono);font-size:15px;letter-spacing:.1em;padding:9px 11px;border-radius:3px;text-transform:uppercase;width:100%;transition:border-color .2s,box-shadow .2s;}
-input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,180,216,.15);}
+inputa.skip-link:focus{left:4px !important;}
+:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,180,216,.15);}
+.recent-btn{background:rgba(0,180,216,.07);border:1px solid rgba(0,180,216,.18);color:rgba(245,240,232,.75);font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 10px;border-radius:3px;cursor:pointer;text-align:left;width:100%;transition:all .15s;}
+.recent-btn:hover{background:rgba(0,180,216,.15);border-color:rgba(0,180,216,.4);color:var(--paper);}
 input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
 .swap-btn{background:rgba(0,180,216,.1);border:1px solid rgba(0,180,216,.3);color:var(--cyan);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;margin-bottom:1px;}
 .swap-btn:hover{background:rgba(0,180,216,.25);transform:rotate(180deg);}
@@ -168,12 +173,24 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 @media(max-width:700px){
-  .main{grid-template-columns:1fr;}
+  .main{grid-template-columns:1fr;position:relative;}
   .hdr-disc{display:none;}
-  .results-pane{min-height:50vh;}
   .export-row{flex-wrap:wrap;gap:6px;}
   .export-btn{min-width:calc(50% - 6px);flex:none;}
   input[type=text],input[type=number]{font-size:16px !important;}
+
+  /* Mobile tab system */
+  .mob-tabs{display:flex;position:sticky;top:0;z-index:100;background:#0d1117;border-bottom:1px solid rgba(0,180,216,.25);}
+  .mob-tab{flex:1;padding:10px 4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,240,232,.5);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;}
+  .mob-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+  .mob-pane{display:none;}
+  .mob-pane.active{display:block;}
+  .sidebar{border-right:none;border-bottom:1px solid rgba(0,180,216,.15);}
+  .results-pane{min-height:60vh;}
+}
+@media(min-width:701px){
+  .mob-tabs{display:none;}
+  .sidebar,.results-pane{display:block !important;}
 }
 </style>
   <meta name="description" content="VFR pilotage waypoint planner for general aviation. Plan visual routes, identify pilotage checkpoints, export to SkyVector and GPX.">
@@ -188,6 +205,7 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230d3a6e'/%3E%3Ctext y='72' font-size='60' x='50' text-anchor='middle' fill='%23e6820a'%3E%E2%9C%88%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+<a href="#planBtn" class="skip-link" style="position:absolute;left:-9999px;top:4px;z-index:999999;background:var(--cyan);color:#000;padding:6px 12px;font-family:var(--mono);font-size:11px;border-radius:3px;">Skip to main content</a>
 <div id="offline-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:99999;background:#7f1d1d;color:#fca5a5;font-family:monospace;font-size:11px;letter-spacing:.08em;text-align:center;padding:8px 16px;border-bottom:1px solid #991b1b;">
   ✈ OFFLINE MODE — Route planning available. Terrain elevation unavailable.
 </div>
@@ -204,20 +222,30 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
 </header>
 
 <div class="main">
+  <div class="mob-tabs" role="tablist" aria-label="Navigation">
+    <button class="mob-tab active" onclick="switchTab('plan')" role="tab" aria-selected="true" aria-controls="mob-plan" id="tab-plan">&#9992; Plan</button>
+    <button class="mob-tab" onclick="switchTab('results')" role="tab" aria-selected="false" aria-controls="mob-results" id="tab-results">&#128249; Results</button>
+    <button class="mob-tab" onclick="switchTab('kneeboard')" role="tab" aria-selected="false" aria-controls="mob-kb" id="tab-kb">&#128424; Kneeboard</button>
+  </div>
+  <div id="mob-plan" class="mob-pane active" role="tabpanel" aria-labelledby="tab-plan">
   <div class="sidebar">
     <div>
       <div class="sec-label">Route</div>
       <div class="input-group">
         <div class="airport-row">
-          <div class="field"><label>Departure (ICAO)</label><input type="text" id="dep" placeholder="KAVL" maxlength="4" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text"></div>
-          <button class="swap-btn" onclick="swapAirports()" title="Swap">⇅</button>
-          <div class="field"><label>Destination (ICAO)</label><input type="text" id="dest" placeholder="KATL" maxlength="4" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text"></div>
+          <div class="field"><label>Departure (ICAO)</label><input type="text" id="dep" placeholder="KAVL" maxlength="4" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="Departure airport ICAO code"></div>
+          <button class="swap-btn" onclick="swapAirports()" title="Swap departure and destination" aria-label="Swap departure and destination">⇅</button>
+          <div class="field"><label>Destination (ICAO)</label><input type="text" id="dest" placeholder="KATL" maxlength="4" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="Destination airport ICAO code"></div>
         </div>
         <div class="opts">
-          <div class="field"><label>Cruise Alt (ft MSL)</label><input type="number" id="alt" value="5500" min="500" max="17500" step="500"></div>
-          <div class="field"><label>Waypoints (5–8)</label><input type="number" id="numwp" value="6" min="5" max="8"></div>
+          <div class="field"><label>Cruise Alt (ft MSL)</label><input type="number" id="alt" value="5500" min="500" max="17500" step="500" aria-label="Cruise altitude in feet MSL"></div>
+          <div class="field"><label>Waypoints (5–8)</label><input type="number" id="numwp" value="6" min="5" max="8" aria-label="Number of waypoints"></div>
         </div>
-        <button class="plan-btn" id="planBtn" onclick="planRoute()">▶ Plan Route</button>
+        <button class="plan-btn" id="planBtn" onclick="planRoute()" aria-label="Plan route">▶ Plan Route</button>
+      <div id="recent-routes" style="display:none;margin-top:10px;">
+        <div class="sec-label" style="margin-bottom:6px;">Recent Routes</div>
+        <div id="recent-list" style="display:flex;flex-direction:column;gap:4px;"></div>
+      </div>
       </div>
     </div>
     <div>
@@ -225,12 +253,13 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
       <div class="status-box" id="statusBox"><span class="info">Ready — enter airports and press Plan Route.</span></div>
     </div>
     <div class="export-row" id="exportRow" style="display:none">
-      <button class="export-btn" onclick="exportGPX()">&#8595; Export GPX</button>
+      <button class="export-btn" onclick="exportGPX()" aria-label="Export GPX file">&#8595; Export GPX</button>
       <button class="export-btn" onclick="exportSkyVector()">&#127756; SkyVector</button>
-      <button class="export-btn" onclick="showKneeboard()">&#128424; Kneeboard</button>
+      <button class="export-btn" onclick="showKneeboard()" aria-label="Show printable kneeboard">&#128424; Kneeboard</button>
     </div>
   </div>
-
+  </div><!-- /mob-plan -->
+  <div id="mob-results" class="mob-pane" role="tabpanel" aria-labelledby="tab-results">
   <div class="results-pane" id="resultsPane">
     <div class="empty-state">
       <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg" style="width:280px;height:160px">
@@ -290,6 +319,12 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
       <p>Enter departure and destination<br>airports and press Plan Route</p>
     </div>
   </div>
+  </div><!-- /mob-results -->
+  <div id="mob-kb" class="mob-pane" role="tabpanel" aria-labelledby="tab-kb">
+    <div style="padding:16px;text-align:center;color:rgba(245,240,232,.5);font-family:var(--mono);font-size:11px;">
+      <p style="margin-bottom:12px">Plan a route first, then tap the Kneeboard button in Results to view it here.</p>
+    </div>
+  </div><!-- /mob-kb -->
 </div>
 </div>
 
@@ -24537,24 +24572,83 @@ function drawTerrainChart(pts, waypoints, cruiseAlt){
   const elevs=pts.map(p=>p.elev??0);
   const maxE=Math.max(...elevs,cruiseAlt,100),minE=Math.min(0,...elevs),range=maxE-minE||1;
   const toX=f=>f*W,toY=e=>H-((e-minE)/range)*(H-10)-5;
-  ctx.clearRect(0,0,W,H);
-  ctx.beginPath();ctx.moveTo(0,H);
-  pts.forEach(p=>ctx.lineTo(toX(p.frac),toY(p.elev??0)));
-  ctx.lineTo(W,H);ctx.closePath();
-  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(46,125,50,.55)');g.addColorStop(1,'rgba(46,125,50,.08)');
-  ctx.fillStyle=g;ctx.fill();
-  ctx.beginPath();
-  pts.forEach((p,i)=>{const x=toX(p.frac),y=toY(p.elev??0);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.strokeStyle='#4ade80';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.save();ctx.setLineDash([4,3]);
-  ctx.beginPath();ctx.moveTo(0,toY(cruiseAlt));ctx.lineTo(W,toY(cruiseAlt));
-  ctx.strokeStyle='rgba(0,180,216,.55)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
-  waypoints.forEach(wp=>{
-    const x=toX(wp.frac);
-    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);
-    ctx.strokeStyle=wp.terrain_warn?'rgba(255,68,68,.5)':'rgba(230,130,10,.4)';
-    ctx.lineWidth=1;ctx.stroke();
-  });
+
+  function redraw(hoverX){
+    ctx.clearRect(0,0,W,H);
+    // Terrain fill
+    ctx.beginPath();ctx.moveTo(0,H);
+    pts.forEach(p=>ctx.lineTo(toX(p.frac),toY(p.elev??0)));
+    ctx.lineTo(W,H);ctx.closePath();
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'rgba(46,125,50,.55)');g.addColorStop(1,'rgba(46,125,50,.08)');
+    ctx.fillStyle=g;ctx.fill();
+    // Terrain line
+    ctx.beginPath();
+    pts.forEach((p,i)=>{const x=toX(p.frac),y=toY(p.elev??0);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+    ctx.strokeStyle='#4ade80';ctx.lineWidth=1.5;ctx.stroke();
+    // Cruise altitude dashed line
+    ctx.save();ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(0,toY(cruiseAlt));ctx.lineTo(W,toY(cruiseAlt));
+    ctx.strokeStyle='rgba(0,180,216,.55)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+    // Waypoint tick marks
+    waypoints.forEach(wp=>{
+      const x=toX(wp.frac);
+      ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);
+      ctx.strokeStyle=wp.terrain_warn?'rgba(255,68,68,.5)':'rgba(230,130,10,.4)';
+      ctx.lineWidth=1;ctx.stroke();
+    });
+    // Hover scrubber
+    if(hoverX!=null && pts.length>1){
+      const frac=hoverX/W;
+      // Find nearest terrain point
+      let nearest=pts[0];
+      pts.forEach(p=>{if(Math.abs(p.frac-frac)<Math.abs(nearest.frac-frac))nearest=p;});
+      const elev=nearest.elev??0;
+      // Vertical scrub line
+      ctx.save();ctx.setLineDash([2,2]);
+      ctx.beginPath();ctx.moveTo(hoverX,0);ctx.lineTo(hoverX,H);
+      ctx.strokeStyle='rgba(245,240,232,.6)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+      // Dot at terrain level
+      const dotY=toY(elev);
+      ctx.beginPath();ctx.arc(hoverX,dotY,3.5,0,Math.PI*2);
+      ctx.fillStyle='#4ade80';ctx.fill();
+      // Tooltip label
+      const label=elev>0?`${elev.toLocaleString()}ft MSL`:'No elev data';
+      ctx.font='10px monospace';
+      const tw=ctx.measureText(label).width+8;
+      const tx=Math.min(hoverX+6, W-tw-2);
+      const ty=Math.max(dotY-8, 12);
+      ctx.fillStyle='rgba(13,31,53,.85)';
+      ctx.fillRect(tx-2,ty-10,tw,14);
+      ctx.fillStyle='rgba(245,240,232,.9)';
+      ctx.fillText(label,tx+2,ty);
+    }
+  }
+
+  redraw(null);
+  canvas.setAttribute('role','img');
+  canvas.setAttribute('aria-label','Terrain elevation profile — hover or touch to read elevation at any point');
+
+  // Remove old listeners to prevent stacking on re-render
+  if(canvas._terrainCleanup) canvas._terrainCleanup();
+
+  function getX(e){
+    const r=canvas.getBoundingClientRect();
+    if(e.touches) return (e.touches[0].clientX-r.left)*(W/r.width);
+    return (e.clientX-r.left)*(W/r.width);
+  }
+  const onMove=e=>{e.preventDefault();redraw(getX(e));};
+  const onLeave=()=>redraw(null);
+  canvas.addEventListener('mousemove',onMove);
+  canvas.addEventListener('mouseleave',onLeave);
+  canvas.addEventListener('touchmove',onMove,{passive:false});
+  canvas.addEventListener('touchend',onLeave);
+  canvas._terrainCleanup=()=>{
+    canvas.removeEventListener('mousemove',onMove);
+    canvas.removeEventListener('mouseleave',onLeave);
+    canvas.removeEventListener('touchmove',onMove);
+    canvas.removeEventListener('touchend',onLeave);
+  };
 }
 
 // ─── RENDER RESULTS ──────────────────────────────────────────────────────────
@@ -24701,6 +24795,8 @@ async function planRoute(){
     currentPlan={dep,dest,waypoints,totalNm,cruiseAlt,terrainPts,aiResult};
     renderResults(dep,dest,aiResult,waypoints,terrainPts,totalNm,cruiseAlt);
     document.getElementById('exportRow').style.display='flex';
+    maybeShowResultsTab();
+    saveRecentRoute(depIcao, destIcao, cruiseAlt, numWp);
     logOk(`Done — ${waypoints.length} waypoints ready.`);
 
   }catch(e){
@@ -24852,7 +24948,7 @@ function showKneeboard(){
   document.getElementById('kneeboard').classList.add('visible');
 }
 
-function hideKneeboard(){document.getElementById('kneeboard').classList.remove('visible');}
+function hideKneeboard(){document.getElementById('kneeboard').classList.remove('visible');if(window.innerWidth<=700)switchTab('results');}
 
 function printKneeboard() {
   const card = document.querySelector('.kb-card');
@@ -24868,7 +24964,7 @@ function printKneeboard() {
 <title>Navly Kneeboard</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap">
 <style>
-:root{--mono:'Share Tech Mono',monospace;--cond:'Barlow Condensed',sans-serif;--paper:#f5f0e8;--amber:#e6820a;--blue:#0d3a6e;--cyan:#00b4d8;--green:#22c55e;--red:#ef4444;}
+:root{--mono:'Share Tech Mono','Courier New',Consolas,monospace;--cond:'Barlow Condensed','Arial Narrow',Impact,sans-serif;--paper:#f5f0e8;--amber:#e6820a;--blue:#0d3a6e;--cyan:#00b4d8;--green:#22c55e;--red:#ef4444;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 body{background:white;font-family:var(--mono);padding:12px;}
 .kb-card{width:4.25in;margin:0 auto;background:white;border:1px solid #aaa;border-radius:4px;overflow:hidden;font-family:var(--mono);}
@@ -24918,6 +25014,68 @@ ${html}
 }
 
 
+// ── RECENT ROUTES ─────────────────────────────────────────────────────────
+const RECENT_KEY = 'navly_recent_routes';
+const RECENT_MAX = 5;
+
+function saveRecentRoute(dep, dest, alt, numwp) {
+  try {
+    const routes = getRecentRoutes();
+    const entry = { dep, dest, alt, numwp, ts: Date.now() };
+    // Remove duplicate if exists
+    const filtered = routes.filter(r => !(r.dep === dep && r.dest === dest));
+    filtered.unshift(entry);
+    localStorage.setItem(RECENT_KEY, JSON.stringify(filtered.slice(0, RECENT_MAX)));
+    renderRecentRoutes();
+  } catch(e) {}
+}
+
+function getRecentRoutes() {
+  try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function renderRecentRoutes() {
+  const routes = getRecentRoutes();
+  const container = document.getElementById('recent-routes');
+  const list = document.getElementById('recent-list');
+  if (!container || !list) return;
+  if (routes.length === 0) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+  list.innerHTML = routes.map((r, i) =>
+    `<button class="recent-btn" onclick="loadRecentRoute(${i})" aria-label="Load route ${r.dep} to ${r.dest}">
+      ${r.dep} → ${r.dest}<span style="float:right;opacity:.45;font-size:10px;">${r.alt.toLocaleString()}ft · ${r.numwp}wp</span>
+    </button>`
+  ).join('');
+}
+
+function loadRecentRoute(i) {
+  const routes = getRecentRoutes();
+  if (!routes[i]) return;
+  const r = routes[i];
+  document.getElementById('dep').value = r.dep;
+  document.getElementById('dest').value = r.dest;
+  document.getElementById('alt').value = r.alt;
+  document.getElementById('numwp').value = r.numwp;
+  planRoute();
+}
+
+// ── MOBILE TAB SWITCHING ──────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.mob-tab').forEach(t => {
+    t.classList.toggle('active', t.id === 'tab-' + name);
+    t.setAttribute('aria-selected', t.id === 'tab-' + name ? 'true' : 'false');
+  });
+  document.querySelectorAll('.mob-pane').forEach(p => {
+    p.classList.toggle('active', p.id === 'mob-' + name);
+  });
+}
+
+// Auto-switch to results tab on mobile after planning
+function maybeShowResultsTab() {
+  if (window.innerWidth <= 700) switchTab('results');
+}
+
 // ── OFFLINE DETECTION ─────────────────────────────────────────────────────
 function updateOfflineBanner() {
   const banner = document.getElementById('offline-banner');
@@ -24934,6 +25092,7 @@ function updateOfflineBanner() {
 window.addEventListener('online',  updateOfflineBanner);
 window.addEventListener('offline', updateOfflineBanner);
 updateOfflineBanner();
+renderRecentRoutes();
 
 document.addEventListener('keydown',e=>{
   if(['dep','dest','alt','numwp'].includes(e.target.id)&&e.key==='Enter')planRoute();
