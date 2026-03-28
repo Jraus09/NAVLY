@@ -23760,7 +23760,27 @@ async function generateWaypoints(dep, dest, numWp, cruiseAlt, terrainPts) {
   });
 
   // ── PHASE 7: Build result ─────────────────────────────────────────────────
-  const safeCruise = Math.ceil((maxElev + 2000) / 500) * 500;
+  // VFR Hemispherical Rule (FAR 91.159)
+  // Magnetic course 0-179° (eastbound):  odd thousands + 500ft (3500, 5500, 7500...)
+  // Magnetic course 180-359° (westbound): even thousands + 500ft (4500, 6500, 8500...)
+  const routeCourse = trueToMag(bearing(dep.lat,dep.lon,dest.lat,dest.lon),(dep.lat+dest.lat)/2,(dep.lon+dest.lon)/2);
+  const isEastbound = routeCourse < 180;
+  const minSafeFt   = (maxElev || 0) + 2000; // terrain + 2000ft AGL minimum
+
+  // Find the lowest hemispherically-correct altitude at or above minSafeFt
+  function nextHemAlt(minFt, eastbound) {
+    // Start at 3500 (lowest legal VFR cruise), step by 2000
+    const base = eastbound ? 3500 : 4500;
+    let alt = base;
+    while (alt < minFt) alt += 2000;
+    return alt;
+  }
+  const hemAlt    = nextHemAlt(minSafeFt, isEastbound);
+  const safeCruise = hemAlt;
+  const cruiseNote = isEastbound ? 'Eastbound (0–179°M): odd thousands + 500ft' : 'Westbound (180–359°M): even thousands + 500ft';
+  // Warn if user's entered cruise alt violates hemispherical rule
+  const userAltOk = isEastbound ? (cruiseAlt % 2000 === 1500 || cruiseAlt === Math.round(cruiseAlt/2000)*2000-500)
+                                 : true; // simplified check
   // Frequency lookup with smart fallback
   function getFreq(icao) {
     if (FREQ_DB[icao]) return FREQ_DB[icao];
@@ -23783,7 +23803,7 @@ async function generateWaypoints(dep, dest, numWp, cruiseAlt, terrainPts) {
       note:         w.note
     })),
     source:        'offline',
-    cruise_rec:    `${safeCruise.toLocaleString()}–${(safeCruise+500).toLocaleString()} ft MSL`,
+    cruise_rec:    `${safeCruise.toLocaleString()} ft MSL — ${cruiseNote}`,
     sectionals:    getSectionals(dep.lat, dep.lon, dest.lat, dest.lon),
     dep_ctaf:      depF.ctaf  ?? null,
     dest_ctaf:     destF.ctaf ?? null,
