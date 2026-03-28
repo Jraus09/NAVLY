@@ -160,56 +160,12 @@ input::placeholder{color:rgba(245,240,232,.2);font-size:12px;}
 .kb-print-btn{background:var(--blue);color:white;border:1px solid var(--cyan);padding:9px 22px;font-size:12px;cursor:pointer;border-radius:3px;font-family:var(--mono);letter-spacing:.1em;}
 
 @media print{
+  /* Fallback for direct window.print() — not used by printKneeboard() */
   body>*{display:none!important;}
   #kneeboard{display:block!important;position:static!important;padding:0!important;background:white!important;}
   .kb-close,.kb-print-row{display:none!important;}
-
-  /* Card container */
-  .kb-card{background:white!important;color:#111!important;border:1px solid #aaa!important;width:4.25in!important;}
-
-  /* Header */
-  .kb-header-bar{background:#e8eef5!important;border-bottom:2px solid #b8860b!important;}
-  .kb-route-id{color:#111!important;}
-  .kb-arrow{color:#b8860b!important;}
-  .kb-meta-right{color:#555!important;}
-  .kb-meta-right strong{color:#111!important;}
-  .kb-route-line{color:#111!important;}
-
-  /* Tags */
-  .kb-cruise-tag{background:#1a4a7a!important;color:white!important;}
-  .kb-tag-row{gap:6px!important;}
-
-  /* Column headers */
-  .kb-col-heads{background:#1a4a7a!important;color:white!important;}
-
-  /* Waypoint rows */
-  .kb-wp-row{background:white!important;border-bottom:1px solid #ddd!important;}
-  .kb-wp-row:nth-child(even){background:#f5f5f5!important;}
-  .kb-wp-row.dep-row{border-left:3px solid #2a7a2a!important;}
-  .kb-wp-row.dest-row{border-left:3px solid #cc2222!important;}
-  .kb-wp-row.wp-row{border-left:3px solid #b8860b!important;}
-  .kb-wp-row.terrain-row{border-left:3px solid #cc2222!important;}
-
-  /* Waypoint text */
-  .kb-fix-num{color:#777!important;}
-  .kb-fix-name{color:#111!important;}
-  .kb-fix-sub{color:#555!important;}
-  .kb-fix-coord{color:#777!important;}
-  .kb-col-val{color:#111!important;}
-  .kb-col-dim{color:#666!important;}
-  .kb-note-cell{color:#333!important;}
-  .kb-terrain-badge{background:#fde8e8!important;color:#cc0000!important;}
-
-  /* Frequencies */
-  .kb-freq-row{border-top:1px solid #bbb!important;}
-  .kb-freq-cell{border-right:1px solid #ddd!important;}
-  .kb-freq-label{color:#666!important;}
-  .kb-freq-val{color:#1a4a7a!important;}
-  .kb-freq-sub{color:#555!important;}
-
-  /* Footer */
-  .kb-disc{background:#fff9e6!important;border-top:1px solid #ccc!important;color:#555!important;}
-  .kb-notfornav{color:#555!important;}
+  .kb-card{width:4.25in!important;margin:0 auto!important;}
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 @media(max-width:700px){
   .main{grid-template-columns:1fr;}
@@ -23800,11 +23756,44 @@ function showKneeboard(){
       ${freqRow}
       <div class="kb-disc"><span>NOT FOR NAVIGATION — VERIFY WITH CURRENT SECTIONAL &amp; NOTAMs</span><span>FILE VFR FLIGHT PLAN</span></div>
     </div>
-    <div class="kb-print-row"><button class="kb-print-btn" onclick="window.print()">🖨 Print Kneeboard</button></div>`;
+    <div class="kb-print-row"><button class="kb-print-btn" onclick="printKneeboard()">🖨 Print Kneeboard</button></div>`;
   document.getElementById('kneeboard').classList.add('visible');
 }
 
 function hideKneeboard(){document.getElementById('kneeboard').classList.remove('visible');}
+
+function printKneeboard() {
+  const card = document.querySelector('.kb-card');
+  if (!card) return;
+
+  // Grab all stylesheet text from the page
+  const styles = Array.from(document.styleSheets).map(ss => {
+    try { return Array.from(ss.cssRules).map(r => r.cssText).join('\n'); }
+    catch(e) { return ''; }
+  }).join('\n');
+
+  const win = window.open('', '_blank', 'width=700,height=900');
+  win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Navly Kneeboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap');
+  ${styles}
+  body { background: white; margin: 0; padding: 16px; }
+  .kb-card { margin: 0 auto; }
+  .kb-print-row, .kb-close { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</head>
+<body>
+${card.outerHTML}
+</body>
+</html>`);
+  win.document.close();
+  win.onload = () => { win.focus(); win.print(); };
+}
 
 document.addEventListener('keydown',e=>{
   if(['dep','dest','alt','numwp'].includes(e.target.id)&&e.key==='Enter')planRoute();
