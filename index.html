@@ -24352,7 +24352,8 @@ async function generateWaypoints(dep, dest, numWp, cruiseAlt, terrainPts) {
     const isHub     = /^K(ATL|ORD|DFW|DEN|LAX|SFO|SEA|MIA|JFK|EWR|LGA|BOS|MSP|DTW|IAH|PHX|CLT|MCO|SLC|MDW|PDX|SAN|TPA|IAD|BWI|BNA|MCI|STL|CLE|RDU|MEM|PIT|CVG|IND|CMH|DAY|BUF|ALB|ROC|SYR|MKE|MSY|SAT|AUS|LIT|TUL|OKC|ABQ|ELP|TUS|BOI|FAI|ANC)$/.test(icao);
 
     // Score tiers — private strips only compete when nothing better nearby
-    const typeBonus = isHub ? 45 : isTowered ? 25 : isPrivate ? 0 : 14; // private strips score pure proximity only
+    if (isPrivate) continue; // Private strips excluded — not on sectional chart, not identifiable from altitude
+    const typeBonus = isHub ? 45 : isTowered ? 25 : 14;
     const elevBonus = (elev > 0 && elev < 15000) ? 3 : 0;
     const hasGeoName = /county|municipal|regional|intl|international|executive|memorial/i.test(name);
     const geoBonus  = hasGeoName ? 10 : 0;
@@ -24379,7 +24380,7 @@ async function generateWaypoints(dep, dest, numWp, cruiseAlt, terrainPts) {
   const merged = [...candidates, ...aptCandidates].sort((a, b) => b.score - a.score);
   const deduped = [];
   for (const c of merged) {
-    if (!deduped.some(p => haversine(p.lat, p.lon, c.lat, c.lon) < 6)) {
+    if (!deduped.some(p => haversine(p.lat, p.lon, c.lat, c.lon) < 5)) {
       deduped.push(c);
     }
   }
