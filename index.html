@@ -23653,34 +23653,24 @@ function exportSkyVector() {
   if (!currentPlan) return;
   const { dep, dest, waypoints } = currentPlan;
 
-  // SkyVector URL format:
-  //   fpl= parameter, space-separated waypoints
-  //   Airports  → bare ICAO e.g. "KAVL"
-  //   User fixes → DDMMSSNDDDMMSSw format e.g. "352610N0823230W"
-  function toSVCoord(lat, lon) {
-    const fmt = (deg, digits) => {
-      let d = Math.floor(Math.abs(deg));
-      const mf = (Math.abs(deg) - d) * 60;
-      let m = Math.floor(mf);
-      let s = Math.round((mf - m) * 60);
-      if (s === 60) { s = 0; m++; }
-      if (m === 60) { m = 0; d++; }
-      return String(d).padStart(digits,'0') + String(m).padStart(2,'0') + String(s).padStart(2,'0');
-    };
-    return fmt(lat,2) + (lat >= 0 ? 'N' : 'S') + fmt(lon,3) + (lon >= 0 ? 'E' : 'W');
+  // Convert decimal degrees to DDMMN DDDMMW (ICAO standard, what SkyVector accepts)
+  function toFix(lat, lon) {
+    const ldeg = Math.floor(Math.abs(lat));
+    let lmin = Math.round((Math.abs(lat) - ldeg) * 60);
+    let ld = ldeg; if (lmin === 60) { lmin = 0; ld++; }
+    const odeg = Math.floor(Math.abs(lon));
+    let omin = Math.round((Math.abs(lon) - odeg) * 60);
+    let od = odeg; if (omin === 60) { omin = 0; od++; }
+    return `${String(ld).padStart(2,'0')}${String(lmin).padStart(2,'0')}${lat>=0?'N':'S'}` +
+           `${String(od).padStart(3,'0')}${String(omin).padStart(2,'0')}${lon>=0?'E':'W'}`;
   }
 
+  const fixes = waypoints.map(wp => toFix(wp.lat, wp.lon));
+  const fpl   = [dep.icao, ...fixes, dest.icao].join(' ');
   const midLat = ((dep.lat + dest.lat) / 2).toFixed(3);
   const midLon = ((dep.lon + dest.lon) / 2).toFixed(3);
-
-  const parts = [dep.icao];
-  for (const wp of waypoints) {
-    parts.push(toSVCoord(wp.lat, wp.lon));
-  }
-  parts.push(dest.icao);
-
-  const fpl = parts.join(' ');
   const url = `https://skyvector.com/?ll=${midLat},${midLon}&zoom=3&fpl=${encodeURIComponent(fpl)}`;
+
   window.open(url, '_blank', 'noopener,noreferrer');
   logOk(`Opened SkyVector: ${dep.icao} → ${waypoints.length} fixes → ${dest.icao}`);
 }
