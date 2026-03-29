@@ -25312,7 +25312,7 @@ async function planRoute(){
       const trH=bearing(prevLat,prevLon,wp.lat,wp.lon);
       // frac: project onto route line
       const dLat=dest.lat-dep.lat,dLon=dest.lon-dep.lon,len2=dLat*dLat+dLon*dLon;
-      const t=len2?Math.max(0,Math.min(1,((wp.lat-dep.lat)*dLat+(wp.lon-dep.lon)*dLon)/len2)):i/(numWp+1);
+      const t=len2?Math.max(0,Math.min(1,((wp.lat-dep.lat)*dLat+(wp.lon-dep.lon)*dLon)/len2)):i/(effectiveWp+1);
       return{
         ...wp,
         elev:wp.elev_ft??0,
@@ -25328,7 +25328,7 @@ async function planRoute(){
     renderResults(dep,dest,aiResult,waypoints,terrainPts,totalNm,cruiseAlt);
     document.getElementById('exportRow').style.display='flex';
     maybeShowResultsTab();
-    saveRecentRoute(depIcao, destIcao, cruiseAlt, numWp);
+    saveRecentRoute(depIcao, destIcao, cruiseAlt, numWpUser);
     logOk(`Done — ${waypoints.length} waypoints ready.`);
 
   }catch(e){
